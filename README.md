@@ -587,4 +587,455 @@ flowchart LR
 * Người dùng không có quyền → Hệ thống từ chối thao tác.
 
 # 9. Phân tích quy trình nghiệp vụ
+# 9. Phân tích quy trình nghiệp vụ
+
+Phân tích quy trình nghiệp vụ nhằm mô tả trình tự thực hiện các hoạt động chính của hệ thống CAB System và sự phối hợp giữa khách hàng, tài xế, hệ thống, nhân viên vận hành và các nhà cung cấp bên ngoài.
+
+## 9.1. Quy trình đặt xe
+
+```mermaid
+flowchart LR
+
+    subgraph KH["Khách hàng"]
+        A(("Start"))
+        B["Đăng nhập"]
+        C["Nhập điểm đón"]
+        D["Nhập điểm đến"]
+        E["Chọn loại xe"]
+        F["Xác nhận đặt xe"]
+    end
+
+    subgraph CAB["CAB System"]
+        G["Kiểm tra thông tin đặt xe"]
+        H{"Thông tin hợp lệ?"}
+        I["Tạo yêu cầu đặt xe"]
+        J["Thông báo tiếp nhận yêu cầu"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+
+    H -- "Không" --> C
+    H -- "Có" --> I
+    I --> J
+    J --> K(("Chuyển sang quy trình tìm tài xế"))
+```
+
+### Mô tả
+
+| STT | Đối tượng  | Hoạt động                                                |
+| --: | ---------- | -------------------------------------------------------- |
+|   1 | Khách hàng | Đăng nhập vào hệ thống.                                  |
+|   2 | Khách hàng | Nhập điểm đón và điểm đến.                               |
+|   3 | Khách hàng | Lựa chọn loại xe.                                        |
+|   4 | Khách hàng | Xác nhận thông tin đặt xe.                               |
+|   5 | Hệ thống   | Kiểm tra thông tin đặt xe.                               |
+|   6 | Hệ thống   | Nếu thông tin không hợp lệ, yêu cầu khách hàng nhập lại. |
+|   7 | Hệ thống   | Nếu thông tin hợp lệ, tạo yêu cầu đặt xe.                |
+|   8 | Hệ thống   | Thông báo hệ thống đã tiếp nhận yêu cầu.                 |
+|   9 | Hệ thống   | Chuyển yêu cầu sang quy trình tìm và phân công tài xế.   |
+
+---
+
+## 9.2. Quy trình tìm và phân công tài xế
+
+```mermaid
+flowchart LR
+
+    A(("Nhận yêu cầu đặt xe"))
+
+    subgraph CAB["CAB System"]
+        B["Xác định tài xế đang sẵn sàng"]
+        C["Lọc tài xế phù hợp"]
+        D["Ưu tiên tài xế phù hợp và gần khách hàng"]
+        E{"Có tài xế phù hợp?"}
+        F["Gửi yêu cầu chuyến"]
+        G{"Tài xế phản hồi?"}
+        H{"Tài xế chấp nhận?"}
+        I["Ghi nhận tài xế được phân công"]
+        J["Thông báo tài xế cho khách hàng"]
+        K["Tiếp tục tìm tài xế khác"]
+        L["Thông báo không tìm được tài xế"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+
+    E -- "Không" --> L
+    E -- "Có" --> F
+
+    F --> G
+    G -- "Không" --> K
+    G -- "Có" --> H
+
+    H -- "Không" --> K
+    H -- "Có" --> I
+
+    K --> B
+    I --> J
+    J --> M(("Chuyển sang thực hiện chuyến"))
+    L --> N(("End"))
+```
+
+### Mô tả
+
+| STT | Đối tượng | Hoạt động                                                         |
+| --: | --------- | ----------------------------------------------------------------- |
+|   1 | Hệ thống  | Xác định các tài xế đang sẵn sàng.                                |
+|   2 | Hệ thống  | Lọc tài xế phù hợp dựa trên vị trí, trạng thái và loại xe.        |
+|   3 | Hệ thống  | Ưu tiên tài xế phù hợp và gần khách hàng.                         |
+|   4 | Hệ thống  | Kiểm tra có tài xế phù hợp hay không.                             |
+|   5 | Hệ thống  | Gửi yêu cầu chuyến đến tài xế được lựa chọn.                      |
+|   6 | Tài xế    | Nhận và phản hồi yêu cầu chuyến.                                  |
+|   7 | Hệ thống  | Nếu tài xế từ chối hoặc không phản hồi, tiếp tục tìm tài xế khác. |
+|   8 | Hệ thống  | Nếu tài xế chấp nhận, ghi nhận tài xế được phân công.             |
+|   9 | Hệ thống  | Thông báo thông tin tài xế cho khách hàng.                        |
+|  10 | Hệ thống  | Nếu không còn tài xế phù hợp, thông báo cho khách hàng.           |
+
+---
+
+## 9.3. Quy trình thực hiện chuyến đi
+
+```mermaid
+flowchart LR
+
+    A(("Tài xế được phân công"))
+
+    subgraph TX["Tài xế"]
+        B["Nhận chuyến"]
+        C["Di chuyển đến điểm đón"]
+        D["Cập nhật đã đến điểm đón"]
+        E["Đón khách"]
+        F["Cập nhật đã đón khách"]
+        G["Thực hiện chuyến đi"]
+        H["Cập nhật vị trí"]
+        I["Cập nhật đang di chuyển"]
+        J["Hoàn thành chuyến"]
+    end
+
+    subgraph CAB["CAB System"]
+        K["Cập nhật trạng thái chuyến"]
+        L["Cập nhật vị trí tài xế"]
+        M["Thông báo trạng thái cho khách hàng"]
+        N["Ghi nhận chuyến hoàn thành"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> K
+    K --> M
+
+    D --> E
+    E --> F
+    F --> K
+    K --> M
+
+    F --> G
+    G --> H
+    H --> L
+    L --> M
+    M --> G
+
+    G --> I
+    I --> K
+
+    G --> J
+    J --> N
+    N --> O(("Chuyển sang tính cước"))
+```
+
+### Mô tả
+
+| STT | Đối tượng | Hoạt động                                               |
+| --: | --------- | ------------------------------------------------------- |
+|   1 | Tài xế    | Nhận chuyến đã được phân công.                          |
+|   2 | Tài xế    | Di chuyển đến điểm đón.                                 |
+|   3 | Tài xế    | Cập nhật trạng thái đã đến điểm đón.                    |
+|   4 | Hệ thống  | Cập nhật trạng thái chuyến và thông báo cho khách hàng. |
+|   5 | Tài xế    | Đón khách và cập nhật trạng thái.                       |
+|   6 | Tài xế    | Thực hiện chuyến đi.                                    |
+|   7 | Tài xế    | Cập nhật vị trí trong quá trình di chuyển.              |
+|   8 | Hệ thống  | Cập nhật vị trí và trạng thái để khách hàng theo dõi.   |
+|   9 | Tài xế    | Cập nhật trạng thái hoàn thành chuyến.                  |
+|  10 | Hệ thống  | Ghi nhận chuyến đã hoàn thành.                          |
+
+---
+
+## 9.4. Quy trình tính cước và thanh toán
+
+```mermaid
+flowchart LR
+
+    A(("Chuyến đi hoàn thành"))
+
+    subgraph CAB["CAB System"]
+        B["Xác định thông tin chuyến"]
+        C["Tính cước"]
+        D["Hiển thị số tiền phải trả"]
+        E{"Phương thức thanh toán?"}
+        F["Ghi nhận thanh toán tiền mặt"]
+        G["Gửi yêu cầu thanh toán điện tử"]
+        H{"Thanh toán thành công?"}
+        I["Ghi nhận giao dịch"]
+        J["Thông báo thanh toán thất bại"]
+        K["Xử lý lại theo chính sách"]
+    end
+
+    subgraph KH["Khách hàng"]
+        L["Chọn phương thức thanh toán"]
+    end
+
+    subgraph PP["Payment Provider"]
+        M["Xử lý giao dịch"]
+        N["Trả kết quả giao dịch"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> L
+    L --> E
+
+    E -- "Tiền mặt" --> F
+    F --> O(("Hoàn tất thanh toán"))
+
+    E -- "Điện tử" --> G
+    G --> M
+    M --> N
+    N --> H
+
+    H -- "Có" --> I
+    I --> O
+
+    H -- "Không" --> J
+    J --> K
+    K --> O
+```
+
+### Mô tả
+
+| STT | Đối tượng        | Hoạt động                                                 |
+| --: | ---------------- | --------------------------------------------------------- |
+|   1 | Hệ thống         | Xác định thông tin chuyến đã hoàn thành.                  |
+|   2 | Hệ thống         | Tính số tiền khách hàng phải trả.                         |
+|   3 | Hệ thống         | Hiển thị số tiền phải thanh toán.                         |
+|   4 | Khách hàng       | Lựa chọn phương thức thanh toán.                          |
+|   5 | Hệ thống         | Nếu thanh toán tiền mặt, ghi nhận phương thức thanh toán. |
+|   6 | Hệ thống         | Nếu thanh toán điện tử, gửi yêu cầu đến Payment Provider. |
+|   7 | Payment Provider | Xử lý giao dịch và trả kết quả.                           |
+|   8 | Hệ thống         | Ghi nhận giao dịch nếu thanh toán thành công.             |
+|   9 | Hệ thống         | Thông báo cho khách hàng nếu thanh toán thất bại.         |
+|  10 | Hệ thống         | Cho phép xử lý lại theo chính sách doanh nghiệp.          |
+
+---
+
+## 9.5. Quy trình thông báo
+
+```mermaid
+flowchart LR
+
+    A(("Phát sinh sự kiện"))
+
+    subgraph CAB["CAB System"]
+        B["Xác định loại sự kiện"]
+        C["Xác định đối tượng nhận"]
+        D["Tạo nội dung thông báo"]
+        E["Chọn kênh thông báo"]
+        F["Gửi thông báo"]
+        G{"Gửi thành công?"}
+        H["Ghi nhận trạng thái gửi"]
+        I["Ghi nhận lỗi"]
+        J["Xử lý theo cơ chế phù hợp"]
+    end
+
+    subgraph N["Notification Provider"]
+        K["Gửi SMS / Email / Push"]
+        L["Trả kết quả gửi"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> K
+    K --> L
+    L --> G
+
+    G -- "Có" --> H
+    G -- "Không" --> I
+    I --> J
+```
+
+### Mô tả
+
+| STT | Đối tượng             | Hoạt động                                       |
+| --: | --------------------- | ----------------------------------------------- |
+|   1 | Hệ thống              | Phát sinh sự kiện cần thông báo.                |
+|   2 | Hệ thống              | Xác định đối tượng nhận thông báo.              |
+|   3 | Hệ thống              | Tạo nội dung thông báo.                         |
+|   4 | Hệ thống              | Xác định kênh thông báo phù hợp.                |
+|   5 | Hệ thống              | Gửi thông báo đến Notification Provider.        |
+|   6 | Notification Provider | Gửi SMS, Email hoặc Push Notification.          |
+|   7 | Notification Provider | Trả kết quả gửi về hệ thống.                    |
+|   8 | Hệ thống              | Ghi nhận trạng thái nếu gửi thành công.         |
+|   9 | Hệ thống              | Ghi nhận lỗi và xử lý phù hợp nếu gửi thất bại. |
+
+---
+
+## 9.6. Quy trình đánh giá và lịch sử chuyến
+
+```mermaid
+flowchart LR
+
+    A(("Chuyến đi hoàn thành"))
+
+    subgraph CAB["CAB System"]
+        B["Lưu thông tin chuyến"]
+        C["Lưu kết quả thanh toán"]
+        D["Cập nhật lịch sử chuyến"]
+        E["Hiển thị lịch sử chuyến"]
+        F["Hiển thị thông tin chuyến"]
+        G{"Chuyến đã hoàn thành?"}
+        H["Lưu đánh giá"]
+    end
+
+    subgraph KH["Khách hàng"]
+        I["Xem lịch sử chuyến"]
+        J["Chọn chuyến"]
+        K["Chọn đánh giá tài xế"]
+        L["Gửi đánh giá"]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> I
+    I --> J
+    J --> F
+    F --> K
+    K --> G
+
+    G -- "Có" --> L
+    L --> H
+    H --> M(("End"))
+
+    G -- "Không" --> N["Không cho phép đánh giá"]
+    N --> M
+```
+
+### Mô tả
+
+| STT | Đối tượng  | Hoạt động                                       |
+| --: | ---------- | ----------------------------------------------- |
+|   1 | Hệ thống   | Lưu thông tin chuyến sau khi hoàn thành.        |
+|   2 | Hệ thống   | Lưu kết quả thanh toán.                         |
+|   3 | Hệ thống   | Cập nhật lịch sử chuyến của khách hàng.         |
+|   4 | Khách hàng | Mở lịch sử chuyến.                              |
+|   5 | Khách hàng | Chọn chuyến muốn xem.                           |
+|   6 | Hệ thống   | Hiển thị thông tin chuyến và số tiền phải trả.  |
+|   7 | Khách hàng | Chọn chức năng đánh giá tài xế.                 |
+|   8 | Hệ thống   | Kiểm tra trạng thái chuyến.                     |
+|   9 | Hệ thống   | Chỉ cho phép đánh giá nếu chuyến đã hoàn thành. |
+|  10 | Hệ thống   | Lưu đánh giá của khách hàng.                    |
+
+---
+
+## 9.7. Quy trình quản lý và xử lý sự cố vận hành
+
+```mermaid
+flowchart LR
+
+    A(("Phát sinh sự cố"))
+
+    subgraph NV["Nhân viên vận hành"]
+        B["Tiếp nhận sự cố"]
+        C["Kiểm tra thông tin chuyến"]
+        D["Kiểm tra trạng thái tài xế"]
+        E["Xác định nguyên nhân"]
+        F["Thực hiện xử lý"]
+        G["Cập nhật kết quả xử lý"]
+    end
+
+    subgraph CAB["CAB System"]
+        H["Cung cấp thông tin chuyến"]
+        I["Cung cấp thông tin tài xế"]
+        J["Ghi nhận sự cố"]
+        K["Lưu lịch sử xử lý"]
+    end
+
+    A --> J
+    J --> B
+    B --> C
+    C --> H
+    H --> D
+    D --> I
+    I --> E
+    E --> F
+    F --> G
+    G --> K
+    K --> L(("End"))
+```
+
+### Mô tả
+
+| STT | Đối tượng          | Hoạt động                                         |
+| --: | ------------------ | ------------------------------------------------- |
+|   1 | Hệ thống           | Ghi nhận trường hợp chuyến đi gặp sự cố.          |
+|   2 | Nhân viên vận hành | Tiếp nhận và kiểm tra sự cố.                      |
+|   3 | Nhân viên vận hành | Kiểm tra thông tin chuyến.                        |
+|   4 | Nhân viên vận hành | Kiểm tra trạng thái tài xế.                       |
+|   5 | Nhân viên vận hành | Xác định nguyên nhân và hướng xử lý.              |
+|   6 | Nhân viên vận hành | Thực hiện xử lý sự cố.                            |
+|   7 | Nhân viên vận hành | Cập nhật kết quả xử lý.                           |
+|   8 | Hệ thống           | Lưu lịch sử xử lý để phục vụ kiểm tra và tra cứu. |
+
+## 9.8. Tổng hợp các quy trình nghiệp vụ
+
+Các quy trình nghiệp vụ chính của CAB System gồm:
+
+| STT | Quy trình                            | Actor chính                              |
+| --: | ------------------------------------ | ---------------------------------------- |
+|   1 | Quy trình đặt xe                     | Khách hàng                               |
+|   2 | Quy trình tìm và phân công tài xế    | CAB System, Tài xế                       |
+|   3 | Quy trình thực hiện chuyến đi        | Tài xế, Khách hàng                       |
+|   4 | Quy trình tính cước và thanh toán    | Khách hàng, CAB System, Payment Provider |
+|   5 | Quy trình thông báo                  | CAB System, Notification Provider        |
+|   6 | Quy trình đánh giá và lịch sử chuyến | Khách hàng, CAB System                   |
+|   7 | Quy trình quản lý và xử lý sự cố     | Nhân viên vận hành, CAB System           |
+
+Các quy trình trên thể hiện luồng nghiệp vụ chính của hệ thống, đồng thời liên kết với các yêu cầu chức năng BR-01 đến BR-10 đã xác định ở các phần trước.
+
 # 10. Phân tích quy tắc nghiệp vụ 
+| ID           | Quy tắc nghiệp vụ           | Mô tả                                                                                                              |
+| ------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| **BRULE-01** | Xác thực người dùng         | Người dùng phải đăng nhập trước khi sử dụng các chức năng yêu cầu tài khoản.                                       |
+| **BRULE-02** | Thông tin đặt xe            | Yêu cầu đặt xe phải có điểm đón, điểm đến và loại xe trước khi được xác nhận.                                      |
+| **BRULE-03** | Tài xế sẵn sàng             | Chỉ tài xế đang ở trạng thái sẵn sàng mới được xem xét để nhận chuyến.                                             |
+| **BRULE-04** | Tài xế phù hợp              | Tài xế được lựa chọn phải phù hợp với vị trí, trạng thái và loại xe yêu cầu.                                       |
+| **BRULE-05** | Ưu tiên tài xế              | Hệ thống ưu tiên tài xế phù hợp và gần khách hàng theo tiêu chí vận hành.                                          |
+| **BRULE-06** | Tài xế từ chối              | Nếu tài xế từ chối chuyến, hệ thống phải tiếp tục tìm tài xế khác.                                                 |
+| **BRULE-07** | Tài xế không phản hồi       | Nếu tài xế không phản hồi trong thời gian quy định, hệ thống phải có cơ chế tiếp tục tìm tài xế khác.              |
+| **BRULE-08** | Không tìm được tài xế       | Nếu không còn tài xế phù hợp, hệ thống phải thông báo rõ ràng cho khách hàng.                                      |
+| **BRULE-09** | Trạng thái chuyến           | Trạng thái chuyến phải được cập nhật theo tiến trình thực tế của chuyến đi.                                        |
+| **BRULE-10** | Cập nhật vị trí             | Vị trí tài xế được ghi nhận trong quá trình thực hiện chuyến để hỗ trợ theo dõi.                                   |
+| **BRULE-11** | Tính cước                   | Số tiền phải trả được xác định dựa trên loại dịch vụ và thông tin chuyến đi.                                       |
+| **BRULE-12** | Phương thức thanh toán      | Khách hàng có thể thanh toán bằng tiền mặt hoặc phương thức thanh toán điện tử được hỗ trợ.                        |
+| **BRULE-13** | Thanh toán điện tử          | Giao dịch điện tử phải được xử lý thông qua nhà cung cấp thanh toán bên ngoài.                                     |
+| **BRULE-14** | Bảo vệ thông tin thanh toán | Hệ thống CAB không lưu trực tiếp thông tin nhạy cảm của thẻ hoặc tài khoản thanh toán.                             |
+| **BRULE-15** | Thanh toán thất bại         | Khi thanh toán điện tử thất bại, hệ thống phải thông báo cho khách hàng và xử lý lại theo chính sách doanh nghiệp. |
+| **BRULE-16** | Đánh giá tài xế             | Khách hàng chỉ được đánh giá tài xế sau khi chuyến đi hoàn thành.                                                  |
+| **BRULE-17** | Phân quyền                  | Người dùng chỉ được thực hiện các chức năng phù hợp với vai trò và quyền được cấp.                                 |
+| **BRULE-18** | Nhật ký thao tác            | Các thao tác quản trị quan trọng phải được ghi nhận để phục vụ kiểm tra và xử lý sự cố.                            |
+| **BRULE-19** | Bảo vệ dữ liệu              | Thông tin cá nhân, phương tiện, vị trí và giao dịch phải được bảo vệ.                                              |
+| **BRULE-20** | Báo cáo                     | Dữ liệu báo cáo phải được tổng hợp từ thông tin chuyến đi và giao dịch được hệ thống ghi nhận.                     |
+
