@@ -110,105 +110,86 @@ quadrantChart
 | **BR-10** | **Bảo mật & phân quyền** | Hệ thống phải đảm bảo xác thực người dùng, kiểm soát quyền truy cập, bảo vệ dữ liệu và lưu vết các thao tác quản trị quan trọng. |
 ## BR-01 — Quản lý tài khoản & hồ sơ
 
-**Business Requirement:** Hệ thống phải hỗ trợ quản lý tài khoản, hồ sơ khách hàng, tài xế và thông tin phương tiện.
+**Business Requirement:** Hệ thống phải hỗ trợ quản lý tài khoản, hồ sơ người dùng, tài xế và phương tiện.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-01** | Hệ thống cho phép khách hàng đăng ký tài khoản. |
-| **FR-02** | Hệ thống cho phép người dùng đăng nhập và đăng xuất. |
-| **FR-03** | Hệ thống cho phép khách hàng cập nhật thông tin cá nhân. |
-| **FR-04** | Hệ thống cho phép tài xế đăng ký hoặc được nhân viên vận hành tạo tài khoản. |
-| **FR-05** | Hệ thống cho phép tài xế cập nhật thông tin hồ sơ và phương tiện. |
-| **FR-06** | Hệ thống cho phép tài xế cập nhật trạng thái hoạt động. |
+| **FR-01** | Hệ thống cho phép người dùng đăng ký, đăng nhập và đăng xuất. |
+| **FR-02** | Hệ thống cho phép người dùng quản lý thông tin cá nhân. |
+| **FR-03** | Hệ thống cho phép tài xế quản lý hồ sơ và thông tin phương tiện. |
+| **FR-04** | Hệ thống cho phép tài xế cập nhật trạng thái hoạt động. |
 
 ---
 
 ## BR-02 — Đặt xe
 
-**Business Requirement:** Hệ thống phải hỗ trợ khách hàng tạo yêu cầu đặt xe dựa trên điểm đón, điểm đến và loại xe.
+**Business Requirement:** Hệ thống phải hỗ trợ khách hàng tạo và quản lý yêu cầu đặt xe.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-07** | Hệ thống cho phép khách hàng nhập điểm đón. |
-| **FR-08** | Hệ thống cho phép khách hàng nhập điểm đến. |
-| **FR-09** | Hệ thống cho phép khách hàng lựa chọn loại xe. |
-| **FR-10** | Hệ thống hiển thị thông tin chuyến trước khi khách hàng xác nhận đặt xe. |
-| **FR-11** | Hệ thống cho phép khách hàng xác nhận và tạo yêu cầu đặt xe. |
+| **FR-05** | Hệ thống cho phép khách hàng nhập điểm đón, điểm đến và lựa chọn loại xe. |
+| **FR-06** | Hệ thống hiển thị thông tin chuyến và cước phí dự kiến trước khi đặt xe. |
+| **FR-07** | Hệ thống cho phép khách hàng xác nhận hoặc hủy yêu cầu đặt xe. |
 
 ---
 
 ## BR-03 — Tìm tài xế
 
-**Business Requirement:** Hệ thống phải tự động tìm kiếm và phân công tài xế phù hợp dựa trên vị trí, trạng thái và các tiêu chí vận hành.
+**Business Requirement:** Hệ thống phải hỗ trợ tìm kiếm và phân công tài xế phù hợp cho chuyến xe.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-12** | Hệ thống xác định các tài xế đang sẵn sàng nhận chuyến. |
-| **FR-13** | Hệ thống xác định tài xế phù hợp dựa trên vị trí, trạng thái và loại xe. |
-| **FR-14** | Hệ thống ưu tiên tài xế phù hợp và gần khách hàng. |
-| **FR-15** | Hệ thống gửi yêu cầu chuyến đến tài xế được lựa chọn. |
-| **FR-16** | Hệ thống ghi nhận tài xế được phân công cho chuyến. |
-| **FR-17** | Hệ thống tiếp tục tìm tài xế khác khi tài xế từ chối hoặc không phản hồi. |
-| **FR-18** | Hệ thống thông báo cho khách hàng khi không tìm được tài xế. |
+| **FR-08** | Hệ thống tự động tìm kiếm tài xế đang sẵn sàng nhận chuyến. |
+| **FR-09** | Hệ thống lựa chọn và phân công tài xế dựa trên vị trí, trạng thái và loại xe. |
+| **FR-10** | Hệ thống tìm tài xế khác khi tài xế từ chối hoặc không phản hồi. |
+| **FR-11** | Hệ thống thông báo cho khách hàng khi không tìm được tài xế. |
 
 ---
 
 ## BR-04 — Quản lý chuyến đi & vị trí
 
-**Business Requirement:** Hệ thống phải hỗ trợ quản lý chuyến đi, cập nhật trạng thái và vị trí tài xế trong quá trình thực hiện chuyến.
+**Business Requirement:** Hệ thống phải hỗ trợ quản lý trạng thái chuyến đi và vị trí tài xế.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-19** | Hệ thống cho phép tài xế chấp nhận hoặc từ chối chuyến. |
-| **FR-20** | Hệ thống tạo và quản lý trạng thái của chuyến đi. |
-| **FR-21** | Hệ thống cho phép tài xế cập nhật trạng thái đã đến điểm đón. |
-| **FR-22** | Hệ thống cho phép tài xế cập nhật trạng thái đã đón khách. |
-| **FR-23** | Hệ thống cho phép tài xế cập nhật trạng thái đang di chuyển. |
-| **FR-24** | Hệ thống cho phép tài xế cập nhật trạng thái hoàn thành chuyến. |
-| **FR-25** | Hệ thống ghi nhận và cập nhật vị trí của tài xế trong quá trình thực hiện chuyến. |
-| **FR-26** | Hệ thống cho phép khách hàng theo dõi trạng thái chuyến đi. |
+| **FR-12** | Hệ thống cho phép tài xế chấp nhận hoặc từ chối chuyến. |
+| **FR-13** | Hệ thống cho phép tài xế cập nhật trạng thái chuyến từ nhận chuyến đến hoàn thành. |
+| **FR-14** | Hệ thống ghi nhận và cập nhật vị trí tài xế trong quá trình thực hiện chuyến. |
+| **FR-15** | Hệ thống cho phép khách hàng theo dõi trạng thái và vị trí chuyến đi. |
 
 ---
 
 ## BR-05 — Tính cước & thanh toán
 
-**Business Requirement:** Hệ thống phải hỗ trợ tính cước và thanh toán bằng tiền mặt hoặc thanh toán điện tử thông qua nhà cung cấp thanh toán bên ngoài.
+**Business Requirement:** Hệ thống phải hỗ trợ tính cước và thanh toán cho chuyến xe.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-27** | Hệ thống xác định số tiền khách hàng phải thanh toán. |
-| **FR-28** | Hệ thống tính cước dựa trên loại dịch vụ và thông tin chuyến đi. |
-| **FR-29** | Hệ thống cho phép khách hàng lựa chọn phương thức thanh toán. |
-| **FR-30** | Hệ thống gửi yêu cầu thanh toán điện tử đến nhà cung cấp thanh toán. |
-| **FR-31** | Hệ thống ghi nhận kết quả giao dịch thanh toán. |
-| **FR-32** | Hệ thống thông báo cho khách hàng khi thanh toán thất bại. |
+| **FR-16** | Hệ thống tính và xác định số tiền khách hàng phải thanh toán. |
+| **FR-17** | Hệ thống cho phép khách hàng lựa chọn phương thức thanh toán tiền mặt hoặc điện tử. |
+| **FR-18** | Hệ thống ghi nhận và cập nhật kết quả giao dịch thanh toán. |
 
 ---
 
 ## BR-06 — Thông báo
 
-**Business Requirement:** Hệ thống phải cung cấp cơ chế thông báo cho khách hàng và tài xế về các sự kiện quan trọng trong quá trình đặt và thực hiện chuyến.
+**Business Requirement:** Hệ thống phải hỗ trợ gửi thông báo đến khách hàng và tài xế về các sự kiện quan trọng.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-33** | Hệ thống gửi thông báo khi yêu cầu đặt xe được tiếp nhận. |
-| **FR-34** | Hệ thống gửi thông báo khi tài xế nhận chuyến. |
-| **FR-35** | Hệ thống gửi thông báo khi tài xế đến điểm đón. |
-| **FR-36** | Hệ thống gửi thông báo khi chuyến đi hoàn thành. |
-| **FR-37** | Hệ thống gửi thông báo về kết quả thanh toán. |
-| **FR-38** | Hệ thống gửi thông báo về chuyến mới hoặc thay đổi liên quan đến chuyến cho tài xế. |
+| **FR-19** | Hệ thống gửi thông báo về yêu cầu đặt xe và thay đổi trạng thái chuyến. |
+| **FR-20** | Hệ thống gửi thông báo về kết quả thanh toán và các sự kiện liên quan đến chuyến. |
 
 ---
 
 ## BR-07 — Đánh giá & lịch sử chuyến
 
-**Business Requirement:** Hệ thống phải hỗ trợ khách hàng tra cứu lịch sử chuyến, số tiền đã thanh toán và đánh giá tài xế sau khi hoàn thành chuyến.
+**Business Requirement:** Hệ thống phải hỗ trợ khách hàng tra cứu lịch sử và đánh giá dịch vụ.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-39** | Hệ thống cho phép khách hàng xem lịch sử chuyến đi. |
-| **FR-40** | Hệ thống hiển thị số tiền phải thanh toán của từng chuyến. |
-| **FR-41** | Hệ thống cho phép khách hàng đánh giá tài xế sau khi hoàn thành chuyến. |
+| **FR-21** | Hệ thống cho phép khách hàng xem lịch sử chuyến và thông tin thanh toán. |
+| **FR-22** | Hệ thống cho phép khách hàng đánh giá tài xế sau khi hoàn thành chuyến. |
 
 ---
 
@@ -218,40 +199,36 @@ quadrantChart
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-42** | Hệ thống cho phép nhân viên vận hành quản lý thông tin khách hàng. |
-| **FR-43** | Hệ thống cho phép nhân viên vận hành quản lý thông tin tài xế. |
-| **FR-44** | Hệ thống cho phép nhân viên vận hành quản lý thông tin phương tiện. |
-| **FR-45** | Hệ thống cho phép nhân viên vận hành xem các chuyến đang diễn ra. |
-| **FR-46** | Hệ thống cho phép nhân viên vận hành theo dõi trạng thái tài xế. |
-| **FR-47** | Hệ thống cho phép nhân viên vận hành xử lý các trường hợp chuyến đi gặp sự cố. |
+| **FR-23** | Hệ thống cho phép nhân viên vận hành quản lý thông tin khách hàng và tài xế. |
+| **FR-24** | Hệ thống cho phép nhân viên vận hành quản lý thông tin phương tiện. |
+| **FR-25** | Hệ thống cho phép nhân viên vận hành xem và giám sát các chuyến đang diễn ra. |
+| **FR-26** | Hệ thống cho phép nhân viên vận hành theo dõi trạng thái tài xế. |
+| **FR-27** | Hệ thống cho phép nhân viên vận hành xử lý các trường hợp chuyến đi gặp sự cố. |
 
 ---
 
 ## BR-09 — Quản lý giao dịch & báo cáo
 
-**Business Requirement:** Hệ thống phải hỗ trợ quản lý, tra cứu giao dịch và cung cấp các báo cáo phục vụ theo dõi hoạt động kinh doanh và hiệu quả vận hành.
+**Business Requirement:** Hệ thống phải hỗ trợ quản lý giao dịch và cung cấp báo cáo phục vụ hoạt động kinh doanh.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-48** | Hệ thống lưu trữ thông tin giao dịch thanh toán. |
-| **FR-49** | Hệ thống cho phép nhân viên có quyền tra cứu lịch sử giao dịch. |
-| **FR-50** | Hệ thống cung cấp báo cáo về số lượng chuyến. |
-| **FR-51** | Hệ thống cung cấp báo cáo về doanh thu. |
-| **FR-52** | Hệ thống cung cấp báo cáo về tỷ lệ chuyến hoàn thành và tỷ lệ hủy. |
-| **FR-53** | Hệ thống cung cấp báo cáo về hiệu quả hoạt động của tài xế. |
+| **FR-28** | Hệ thống lưu trữ và cho phép tra cứu lịch sử giao dịch thanh toán. |
+| **FR-29** | Hệ thống cung cấp báo cáo về số chuyến, doanh thu và tình trạng chuyến. |
+| **FR-30** | Hệ thống cung cấp báo cáo về hiệu quả hoạt động của tài xế. |
 
 ---
 
 ## BR-10 — Bảo mật & phân quyền
 
-**Business Requirement:** Hệ thống phải đảm bảo xác thực người dùng, kiểm soát quyền truy cập, bảo vệ dữ liệu và lưu vết các thao tác quản trị quan trọng.
+**Business Requirement:** Hệ thống phải đảm bảo xác thực, phân quyền và bảo vệ dữ liệu trong hệ thống.
 
 | ID | Functional Requirement |
 |---|---|
-| **FR-54** | Hệ thống xác thực người dùng trước khi sử dụng các chức năng yêu cầu tài khoản. |
-| **FR-55** | Hệ thống kiểm soát quyền truy cập các chức năng theo vai trò người dùng. |
-| **FR-56** | Hệ thống bảo vệ thông tin cá nhân, thông tin phương tiện, dữ liệu vị trí và dữ liệu giao dịch. |
-| **FR-57** | Hệ thống ghi nhận các thao tác quản trị quan trọng để phục vụ kiểm tra và xử lý sự cố. |
+| **FR-31** | Hệ thống xác thực người dùng trước khi sử dụng các chức năng yêu cầu đăng nhập. |
+| **FR-32** | Hệ thống kiểm soát quyền truy cập dựa trên vai trò người dùng. |
+| **FR-33** | Hệ thống bảo vệ dữ liệu và ghi nhận các thao tác quản trị quan trọng. |
+
 # 7. Vẽ Usecase 
 ```mermaid
 flowchart LR
