@@ -1,1 +1,13 @@
 
+openapi: 3.0.3
+
+info:
+  title: CabSystem API
+  description: API documentation for CabSystem
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local development server
+
+paths: {}
