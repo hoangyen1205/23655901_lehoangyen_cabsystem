@@ -12,202 +12,214 @@ servers:
 paths:
 
   /auth/register:
-  post:
-    tags:
-      - Authentication
-    summary: Đăng ký tài khoản
-    description: Cho phép người dùng đăng ký tài khoản CabSystem.
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - name
-              - phone
-              - password
-            properties:
-              name:
-                type: string
-                example: Nguyen Van A
-              phone:
-                type: string
-                example: "0901234567"
-              password:
-                type: string
-                format: password
-                example: "12345678"
-    responses:
-      '201':
-        description: Đăng ký tài khoản thành công
-      '400':
-        description: Dữ liệu không hợp lệ
-      '409':
-        description: Số điện thoại đã tồn tại
-/auth/login:
-  post:
-    tags:
-      - Authentication
-    summary: Đăng nhập
-    description: Cho phép người dùng đăng nhập vào hệ thống.
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - phone
-              - password
-            properties:
-              phone:
-                type: string
-                example: "0901234567"
-              password:
-                type: string
-                format: password
-                example: "12345678"
-    responses:
-      '200':
-        description: Đăng nhập thành công
-      '401':
-        description: Sai số điện thoại hoặc mật khẩu
-/auth/logout:
-  post:
-    tags:
-      - Authentication
-    summary: Đăng xuất
-    description: Cho phép người dùng đăng xuất khỏi hệ thống.
-    security:
-      - bearerAuth: []
-    responses:
-      '200':
-        description: Đăng xuất thành công
-      '401':
-        description: Chưa xác thực
-/users/me:
-  get:
-    tags:
-      - Users
-    summary: Xem thông tin cá nhân
-    description: Lấy thông tin tài khoản của người dùng hiện tại.
-    security:
-      - bearerAuth: []
-    responses:
-      '200':
-        description: Lấy thông tin thành công
-      '401':
-        description: Chưa xác thực
+    post:
+      tags:
+        - Authentication
+      summary: Đăng ký tài khoản
+      description: Cho phép người dùng đăng ký tài khoản CabSystem.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - phone
+                - password
+              properties:
+                name:
+                  type: string
+                  example: Nguyen Van A
+                phone:
+                  type: string
+                  example: "0901234567"
+                password:
+                  type: string
+                  format: password
+                  example: "12345678"
+      responses:
+        '201':
+          description: Đăng ký tài khoản thành công
+        '400':
+          description: Dữ liệu không hợp lệ
+        '409':
+          description: Số điện thoại đã tồn tại
 
-  put:
-    tags:
-      - Users
-    summary: Cập nhật thông tin cá nhân
-    description: Cho phép người dùng cập nhật thông tin cá nhân.
-    security:
-      - bearerAuth: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: Nguyen Van B
-              phone:
-                type: string
-                example: "0912345678"
-    responses:
-      '200':
-        description: Cập nhật thông tin thành công
-      '400':
-        description: Dữ liệu không hợp lệ
-      '401':
-        description: Chưa xác thực
-/drivers/me:
-  get:
-    tags:
-      - Drivers
-    summary: Xem hồ sơ tài xế
-    description: Lấy thông tin hồ sơ và phương tiện của tài xế hiện tại.
-    security:
-      - bearerAuth: []
-    responses:
-      '200':
-        description: Lấy thông tin thành công
-      '401':
-        description: Chưa xác thực
-      '403':
-        description: Người dùng không có quyền tài xế
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Đăng nhập
+      description: Cho phép người dùng đăng nhập vào hệ thống.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - phone
+                - password
+              properties:
+                phone:
+                  type: string
+                  example: "0901234567"
+                password:
+                  type: string
+                  format: password
+                  example: "12345678"
+      responses:
+        '200':
+          description: Đăng nhập thành công
+        '401':
+          description: Sai số điện thoại hoặc mật khẩu
 
-  put:
-    tags:
-      - Drivers
-    summary: Cập nhật hồ sơ tài xế
-    description: Cho phép tài xế cập nhật thông tin hồ sơ và phương tiện.
-    security:
-      - bearerAuth: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                example: Tran Van B
-              phone:
-                type: string
-                example: "0987654321"
-              vehicleType:
-                type: string
-                example: Sedan
-              licensePlate:
-                type: string
-                example: "59A-12345"
-    responses:
-      '200':
-        description: Cập nhật hồ sơ thành công
-      '400':
-        description: Dữ liệu không hợp lệ
-      '401':
-        description: Chưa xác thực
-      '403':
-        description: Không có quyền tài xế
-/drivers/me/status:
-  put:
-    tags:
-      - Drivers
-    summary: Cập nhật trạng thái hoạt động
-    description: Cho phép tài xế cập nhật trạng thái sẵn sàng hoặc không sẵn sàng nhận chuyến.
-    security:
-      - bearerAuth: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - status
-            properties:
-              status:
-                type: string
-                enum:
-                  - ONLINE
-                  - OFFLINE
-                example: ONLINE
-    responses:
-      '200':
-        description: Cập nhật trạng thái thành công
-      '400':
-        description: Trạng thái không hợp lệ
-      '401':
-        description: Chưa xác thực
-      '403':
-        description: Không có quyền tài xế
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: Đăng xuất
+      description: Cho phép người dùng đăng xuất khỏi hệ thống.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Đăng xuất thành công
+        '401':
+          description: Chưa xác thực
 
+  /users/me:
+    get:
+      tags:
+        - Users
+      summary: Xem thông tin cá nhân
+      description: Lấy thông tin tài khoản của người dùng hiện tại.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy thông tin thành công
+        '401':
+          description: Chưa xác thực
+
+    put:
+      tags:
+        - Users
+      summary: Cập nhật thông tin cá nhân
+      description: Cho phép người dùng cập nhật thông tin cá nhân.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Nguyen Van B
+                phone:
+                  type: string
+                  example: "0912345678"
+      responses:
+        '200':
+          description: Cập nhật thông tin thành công
+        '400':
+          description: Dữ liệu không hợp lệ
+        '401':
+          description: Chưa xác thực
+
+  /drivers/me:
+    get:
+      tags:
+        - Drivers
+      summary: Xem hồ sơ tài xế
+      description: Lấy thông tin hồ sơ và phương tiện của tài xế hiện tại.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy thông tin thành công
+        '401':
+          description: Chưa xác thực
+        '403':
+          description: Người dùng không có quyền tài xế
+
+    put:
+      tags:
+        - Drivers
+      summary: Cập nhật hồ sơ tài xế
+      description: Cho phép tài xế cập nhật thông tin hồ sơ và phương tiện.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Tran Van B
+                phone:
+                  type: string
+                  example: "0987654321"
+                vehicleType:
+                  type: string
+                  example: Sedan
+                licensePlate:
+                  type: string
+                  example: "59A-12345"
+      responses:
+        '200':
+          description: Cập nhật hồ sơ thành công
+        '400':
+          description: Dữ liệu không hợp lệ
+        '401':
+          description: Chưa xác thực
+        '403':
+          description: Không có quyền tài xế
+
+  /drivers/me/status:
+    put:
+      tags:
+        - Drivers
+      summary: Cập nhật trạng thái hoạt động
+      description: Cho phép tài xế cập nhật trạng thái sẵn sàng hoặc không sẵn sàng nhận chuyến.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - ONLINE
+                    - OFFLINE
+                  example: ONLINE
+      responses:
+        '200':
+          description: Cập nhật trạng thái thành công
+        '400':
+          description: Trạng thái không hợp lệ
+        '401':
+          description: Chưa xác thực
+        '403':
+          description: Không có quyền tài xế
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
