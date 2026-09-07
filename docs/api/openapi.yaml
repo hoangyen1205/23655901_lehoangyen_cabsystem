@@ -10,4 +10,52 @@ servers:
   - url: http://localhost:8080/api/v1
     description: Local development server
 
-paths: {}
+paths:
+
+  /auth/register:
+    post:
+      summary: Đăng ký tài khoản
+      description: Cho phép khách hàng đăng ký tài khoản CabSystem.
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - phone
+                - password
+
+              properties:
+                name:
+                  type: string
+                  example: Nguyen Van A
+
+                email:
+                  type: string
+                  format: email
+                  example: nguyenvana@gmail.com
+
+                phone:
+                  type: string
+                  example: "0901234567"
+
+                password:
+                  type: string
+                  format: password
+                  example: "12345678"
+
+      responses:
+        '201':
+          description: Đăng ký thành công
+
+        '400':
+          description: Dữ liệu không hợp lệ
+
+        '409':
+          description: Email hoặc số điện thoại đã tồn tại
+
+
