@@ -1,1 +1,103 @@
+openapi: 3.0.3
 
+info:
+  title: CabSystem API
+  description: API documentation for CabSystem
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local development server
+
+paths:
+
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+
+      summary: Đăng ký tài khoản
+
+      description: Cho phép khách hàng đăng ký tài khoản CabSystem.
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              required:
+                - name
+                - email
+                - phone
+                - password
+
+              properties:
+                name:
+                  type: string
+                  example: Nguyen Van A
+
+                email:
+                  type: string
+                  format: email
+                  example: nguyenvana@gmail.com
+
+                phone:
+                  type: string
+                  example: "0901234567"
+
+                password:
+                  type: string
+                  format: password
+                  example: "12345678"
+
+      responses:
+
+        '201':
+          description: Đăng ký tài khoản thành công
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+
+                  message:
+                    type: string
+                    example: Đăng ký thành công
+
+                  data:
+                    type: object
+
+                    properties:
+                      userId:
+                        type: integer
+                        example: 1
+
+                      name:
+                        type: string
+                        example: Nguyen Van A
+
+                      email:
+                        type: string
+                        example: nguyenvana@gmail.com
+
+                      phone:
+                        type: string
+                        example: "0901234567"
+
+                      role:
+                        type: string
+                        example: CUSTOMER
+
+        '400':
+          description: Dữ liệu không hợp lệ
+
+        '409':
+          description: Email hoặc số điện thoại đã tồn tại
