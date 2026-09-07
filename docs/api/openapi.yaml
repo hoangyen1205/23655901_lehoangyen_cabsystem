@@ -7,188 +7,403 @@ info:
 
 servers:
   - url: http://localhost:8080/api/v1
-    description: Local development server
 
 paths:
 
+  # =========================
+  # BR-01
+  # =========================
+
+  # FR-01
   /auth/register:
     post:
       tags:
         - Authentication
       summary: Đăng ký tài khoản
-      description: Cho phép người dùng đăng ký tài khoản CabSystem.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - name
-                - phone
-                - password
-              properties:
-                name:
-                  type: string
-                  example: Nguyen Van A
-                phone:
-                  type: string
-                  example: "0901234567"
-                password:
-                  type: string
-                  format: password
-                  example: "12345678"
+      description: Hệ thống cho phép người dùng đăng ký tài khoản.
       responses:
         '201':
-          description: Đăng ký tài khoản thành công
+          description: Đăng ký thành công
         '400':
           description: Dữ liệu không hợp lệ
-        '409':
-          description: Số điện thoại đã tồn tại
 
+  # FR-02
   /auth/login:
     post:
       tags:
         - Authentication
-      summary: Đăng nhập
-      description: Cho phép người dùng đăng nhập vào hệ thống.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - phone
-                - password
-              properties:
-                phone:
-                  type: string
-                  example: "0901234567"
-                password:
-                  type: string
-                  format: password
-                  example: "12345678"
+      summary: Đăng nhập / Đăng xuất
+      description: Hệ thống cho phép người dùng đăng nhập và đăng xuất.
       responses:
         '200':
-          description: Đăng nhập thành công
-        '401':
-          description: Sai số điện thoại hoặc mật khẩu
-
-  /auth/logout:
-    post:
-      tags:
-        - Authentication
-      summary: Đăng xuất
-      description: Cho phép người dùng đăng xuất khỏi hệ thống.
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Đăng xuất thành công
+          description: Thao tác thành công
         '401':
           description: Chưa xác thực
 
+  # FR-03
   /users/me:
-    get:
-      tags:
-        - Users
-      summary: Xem thông tin cá nhân
-      description: Lấy thông tin tài khoản của người dùng hiện tại.
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Lấy thông tin thành công
-        '401':
-          description: Chưa xác thực
-
     put:
       tags:
         - Users
-      summary: Cập nhật thông tin cá nhân
-      description: Cho phép người dùng cập nhật thông tin cá nhân.
+      summary: Quản lý thông tin cá nhân
+      description: Hệ thống cho phép người dùng cập nhật thông tin cá nhân.
       security:
         - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Nguyen Van B
-                phone:
-                  type: string
-                  example: "0912345678"
       responses:
         '200':
-          description: Cập nhật thông tin thành công
-        '400':
-          description: Dữ liệu không hợp lệ
+          description: Cập nhật thành công
         '401':
           description: Chưa xác thực
 
+  # FR-04
   /drivers/me:
-    get:
-      tags:
-        - Drivers
-      summary: Xem hồ sơ tài xế
-      description: Lấy thông tin hồ sơ và phương tiện của tài xế hiện tại.
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Lấy thông tin thành công
-        '401':
-          description: Chưa xác thực
-        '403':
-          description: Người dùng không có quyền tài xế
-
     put:
       tags:
         - Drivers
-      summary: Cập nhật hồ sơ tài xế
-      description: Cho phép tài xế cập nhật thông tin hồ sơ và phương tiện.
+      summary: Quản lý hồ sơ tài xế
+      description: Hệ thống cho phép tài xế cập nhật hồ sơ.
       security:
         - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Tran Van B
-                phone:
-                  type: string
-                  example: "0987654321"
-                vehicleType:
-                  type: string
-                  example: Sedan
-                licensePlate:
-                  type: string
-                  example: "59A-12345"
       responses:
         '200':
-          description: Cập nhật hồ sơ thành công
-        '400':
-          description: Dữ liệu không hợp lệ
-        '401':
-          description: Chưa xác thực
+          description: Cập nhật thành công
         '403':
           description: Không có quyền tài xế
 
+  # FR-05
+  /drivers/me/vehicle:
+    put:
+      tags:
+        - Drivers
+      summary: Quản lý phương tiện
+      description: Hệ thống cho phép tài xế cập nhật thông tin phương tiện.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Cập nhật phương tiện thành công
+
+  # FR-06
   /drivers/me/status:
     put:
       tags:
         - Drivers
       summary: Cập nhật trạng thái hoạt động
-      description: Cho phép tài xế cập nhật trạng thái sẵn sàng hoặc không sẵn sàng nhận chuyến.
+      description: Hệ thống cho phép tài xế cập nhật trạng thái hoạt động.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Cập nhật trạng thái thành công
+        '400':
+          description: Trạng thái không hợp lệ
+
+  # =========================
+  # BR-02
+  # =========================
+
+  # FR-07
+  /rides/booking:
+    post:
+      tags:
+        - Rides
+      summary: Nhập thông tin đặt xe
+      description: Hệ thống cho phép khách hàng nhập điểm đón, điểm đến và loại xe.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Thông tin đặt xe hợp lệ
+        '400':
+          description: Dữ liệu không hợp lệ
+
+  # FR-08
+  /rides/estimate:
+    post:
+      tags:
+        - Rides
+      summary: Xem thông tin chuyến và cước phí
+      description: Hệ thống hiển thị thông tin chuyến và cước phí dự kiến.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Hiển thị thông tin thành công
+
+  # FR-09
+  /rides:
+    post:
+      tags:
+        - Rides
+      summary: Xác nhận đặt xe
+      description: Hệ thống cho phép khách hàng xác nhận và tạo yêu cầu đặt xe.
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Đặt xe thành công
+
+  # FR-10
+  /rides/{rideId}/cancel:
+    post:
+      tags:
+        - Rides
+      summary: Hủy chuyến
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Hủy chuyến thành công
+
+  # =========================
+  # BR-03
+  # =========================
+
+  # FR-11
+  /drivers/search:
+    get:
+      tags:
+        - Drivers
+      summary: Tìm tài xế
+      description: Hệ thống tìm kiếm tài xế đang sẵn sàng.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Tìm tài xế thành công
+
+  # FR-12
+  /rides/{rideId}/assign-driver:
+    post:
+      tags:
+        - Drivers
+      summary: Phân công tài xế
+      description: Hệ thống phân công tài xế phù hợp cho chuyến.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Phân công thành công
+
+  # FR-13
+  /rides/{rideId}/driver-reassign:
+    post:
+      tags:
+        - Drivers
+      summary: Tìm tài xế khác
+      description: Hệ thống tìm tài xế khác khi tài xế từ chối hoặc không phản hồi.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Đã tìm tài xế khác
+        '404':
+          description: Không tìm được tài xế
+
+  # FR-14
+  /rides/{rideId}/no-driver:
+    get:
+      tags:
+        - Drivers
+      summary: Thông báo không tìm được tài xế
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Đã thông báo khách hàng
+
+  # =========================
+  # BR-04
+  # =========================
+
+  # FR-15
+  /rides/{rideId}/accept:
+    post:
+      tags:
+        - Rides
+      summary: Chấp nhận hoặc từ chối chuyến
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Xử lý chuyến thành công
+
+  # FR-16
+  /rides/{rideId}/status:
+    put:
+      tags:
+        - Rides
+      summary: Cập nhật trạng thái chuyến
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cập nhật trạng thái thành công
+
+  # FR-17
+  /drivers/me/location:
+    put:
+      tags:
+        - Drivers
+      summary: Cập nhật vị trí tài xế
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Cập nhật vị trí thành công
+
+  # FR-18
+  /rides/{rideId}/tracking:
+    get:
+      tags:
+        - Rides
+      summary: Theo dõi chuyến
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lấy thông tin theo dõi thành công
+
+  # FR-19
+  /rides/{rideId}/complete:
+    post:
+      tags:
+        - Rides
+      summary: Hoàn thành chuyến
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Hoàn thành chuyến thành công
+
+  # =========================
+  # BR-05
+  # =========================
+
+  # FR-20
+  /payments/{rideId}/fare:
+    get:
+      tags:
+        - Payments
+      summary: Tính cước
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tính cước thành công
+
+  # FR-21
+  /payments/{rideId}:
+    post:
+      tags:
+        - Payments
+      summary: Thanh toán chuyến xe
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rideId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Thanh toán thành công
+        '400':
+          description: Thanh toán thất bại
+
+  # =========================
+  # BR-06
+  # =========================
+
+  # FR-22
+  /notifications:
+    get:
+      tags:
+        - Notifications
+      summary: Nhận thông báo
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy thông báo thành công
+
+  # =========================
+  # BR-07
+  # =========================
+
+  # FR-23
+  /rides/history:
+    get:
+      tags:
+        - Rides
+      summary: Xem lịch sử chuyến
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy lịch sử chuyến thành công
+
+  # FR-24
+  /reviews:
+    post:
+      tags:
+        - Reviews
+      summary: Đánh giá tài xế
       security:
         - bearerAuth: []
       requestBody:
@@ -198,27 +413,151 @@ paths:
             schema:
               type: object
               required:
-                - status
+                - rideId
+                - rating
               properties:
-                status:
+                rideId:
                   type: string
-                  enum:
-                    - ONLINE
-                    - OFFLINE
-                  example: ONLINE
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                comment:
+                  type: string
+      responses:
+        '201':
+          description: Đánh giá thành công
+
+  # =========================
+  # BR-08
+  # =========================
+
+  # FR-25
+  /operator/users:
+    get:
+      tags:
+        - Operator
+      summary: Quản lý khách hàng và tài xế
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: Cập nhật trạng thái thành công
-        '400':
-          description: Trạng thái không hợp lệ
-        '401':
-          description: Chưa xác thực
+          description: Lấy danh sách người dùng thành công
         '403':
-          description: Không có quyền tài xế
+          description: Không có quyền
+
+  # FR-26
+  /operator/vehicles:
+    get:
+      tags:
+        - Operator
+      summary: Quản lý phương tiện
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy danh sách phương tiện thành công
+
+  # FR-27
+  /operator/rides:
+    get:
+      tags:
+        - Operator
+      summary: Giám sát chuyến đi
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy danh sách chuyến đi thành công
+
+  # FR-28
+  /operator/drivers:
+    get:
+      tags:
+        - Operator
+      summary: Theo dõi tài xế
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy trạng thái tài xế thành công
+
+  # FR-29
+  /operator/incidents:
+    post:
+      tags:
+        - Operator
+      summary: Xử lý sự cố chuyến đi
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Ghi nhận và xử lý sự cố thành công
+
+  # =========================
+  # BR-09
+  # =========================
+
+  # FR-30
+  /operator/transactions:
+    get:
+      tags:
+        - Reports
+      summary: Tra cứu giao dịch
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy lịch sử giao dịch thành công
+
+  # FR-31
+  /operator/reports:
+    get:
+      tags:
+        - Reports
+      summary: Xem báo cáo hoạt động
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy báo cáo thành công
+
+  # =========================
+  # BR-10
+  # =========================
+
+  # FR-32
+  /auth/verify:
+    get:
+      tags:
+        - Security
+      summary: Xác thực người dùng
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Người dùng đã được xác thực
+        '401':
+          description: Xác thực thất bại
+
+  # FR-33
+  /security/permissions:
+    get:
+      tags:
+        - Security
+      summary: Kiểm tra quyền người dùng
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lấy quyền người dùng thành công
+        '403':
+          description: Không có quyền truy cập
 
 components:
 
   securitySchemes:
+
     bearerAuth:
       type: http
       scheme: bearer
