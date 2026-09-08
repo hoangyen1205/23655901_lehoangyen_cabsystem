@@ -155,48 +155,75 @@ quadrantChart
 | | FR-43 | Hệ thống bảo vệ dữ liệu người dùng và dữ liệu giao dịch. |
 | | FR-44 | Hệ thống ghi nhận nhật ký hoạt động để phục vụ kiểm tra và truy vết. |
 # 7. Vẽ Usecase 
+
+
 ```mermaid
 flowchart LR
 
-    KH["👤 Customer"]
-    TX["🚕 Driver"]
-    NV["👤 Operations Staff"]
+    KH["👤 Khách hàng"]
+    TX["🚕 Tài xế"]
+    NV["🧑‍💼 Nhân viên vận hành"]
+    AD["👨‍💻 Admin"]
 
-    subgraph CAB["CAB SYSTEM"]
+    subgraph CAB["HỆ THỐNG CAB"]
 
-        UC01(["Quản lý tài khoản & hồ sơ"])
-        UC02(["Đặt xe"])
-        UC03(["Tìm & phân công tài xế"])
-        UC04(["Quản lý chuyến đi"])
-        UC05(["Theo dõi chuyến đi"])
-        UC06(["Tính cước & thanh toán"])
-        UC07(["Quản lý thông báo"])
-        UC08(["Đánh giá & lịch sử chuyến"])
-        UC09(["Quản lý vận hành"])
-        UC10(["Quản lý giao dịch & báo cáo"])
-        UC11(["Bảo mật & phân quyền"])
+        K1(["Quản lý tài khoản"])
+        K2(["Đặt xe"])
+        K3(["Theo dõi chuyến đi"])
+        K4(["Thanh toán chuyến đi"])
+        K5(["Xem thông báo"])
+        K6(["Xem lịch sử chuyến đi"])
+        K7(["Đánh giá tài xế"])
+
+        T1(["Đăng nhập"])
+        T2(["Quản lý hồ sơ tài xế và phương tiện"])
+        T3(["Quản lý chuyến đi"])
+        T4(["Xem thông báo"])
+
+        N1(["Quản lý khách hàng"])
+        N2(["Quản lý tài xế"])
+        N3(["Quản lý phương tiện"])
+        N4(["Quản lý chuyến đi"])
+        N5(["Theo dõi trạng thái tài xế"])
+        N6(["Xử lý sự cố"])
+        N7(["Tra cứu giao dịch"])
+        N8(["Xem báo cáo"])
+
+        A1(["Quản lý quyền truy cập / phân quyền"])
+        A2(["Quản lý bảo mật"])
+        A3(["Theo dõi nhật ký hoạt động"])
 
     end
 
-    %% Customer
-    KH --- UC01
-    KH --- UC02
-    KH --- UC05
-    KH --- UC06
-    KH --- UC07
-    KH --- UC08
+    KH --- K1
+    KH --- K2
+    KH --- K3
+    KH --- K4
+    KH --- K5
+    KH --- K6
+    KH --- K7
+    KH --- T1
 
-    %% Driver
-    TX --- UC01
-    TX --- UC04
-    TX --- UC05
-    TX --- UC07
+    TX --- T1
+    TX --- T2
+    TX --- T3
+    TX --- T4
 
-    %% Operations Staff
-    NV --- UC09
-    NV --- UC10
-    NV --- UC11
+    NV --- N1
+    NV --- N2
+    NV --- N3
+    NV --- N4
+    NV --- N5
+    NV --- N6
+    NV --- N7
+    NV --- N8
+
+    AD --- A1
+    AD --- A2
+    AD --- A3
 ```
+
+
 # 8. Đặc tả Usecase
 # 8. Use Case Specification
 
