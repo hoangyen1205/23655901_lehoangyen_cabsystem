@@ -81,154 +81,79 @@ quadrantChart
 | **BG09** | **Đảm bảo bảo mật và kiểm soát truy cập** | Bảo vệ thông tin cá nhân, phương tiện, vị trí, giao dịch và kiểm soát các thao tác quản trị. |
 | **BG10** | **Nâng cao độ tin cậy và tính sẵn sàng** | Hạn chế ảnh hưởng dây chuyền khi một thành phần như thanh toán hoặc thông báo gặp lỗi. |
 # 4. Phạm vi cơ bản của hệ thống
-| STT | Module | Phạm vi cốt lõi |
-|:---:|---|---|
-| 1 | **Quản lý tài khoản & hồ sơ** | Đăng ký, đăng nhập, cập nhật thông tin khách hàng/tài xế; quản lý hồ sơ và phương tiện của tài xế. |
-| 2 | **Đặt xe** | Khách hàng nhập điểm đón, điểm đến, chọn loại xe. |
-| 3 | **Tìm tài xế** | Hệ thống tìm và phân công tài xế phù hợp dựa trên vị trí, trạng thái và tiêu chí vận hành. |
-| 4 | **Quản lý chuyến đi & vị trí** | Tài xế nhận chuyến, cập nhật trạng thái từ đến điểm đón, đón khách, đang di chuyển đến hoàn thành; cập nhật vị trí để hỗ trợ theo dõi và dự kiến thời gian đến. |
-| 5 | **Tính cước & thanh toán** | Tính số tiền phải trả sau chuyến; hỗ trợ thanh toán tiền mặt và thanh toán điện tử thông qua Payment Provider; xử lý kết quả giao dịch. |
-| 6 | **Thông báo** | Gửi thông báo cho khách hàng và tài xế về yêu cầu đặt xe, nhận chuyến, trạng thái chuyến, hoàn thành chuyến và kết quả thanh toán. |
-| 7 | **Đánh giá & lịch sử chuyến** | Khách hàng xem lịch sử chuyến, số tiền phải trả và đánh giá tài xế sau khi hoàn thành chuyến. |
-| 8 | **Quản lý vận hành** | Nhân viên vận hành quản lý khách hàng, tài xế, phương tiện, chuyến đi; theo dõi chuyến đang diễn ra và xử lý các trường hợp phát sinh. |
-| 9 | **Quản lý giao dịch & báo cáo** | Tra cứu lịch sử giao dịch và cung cấp báo cáo cơ bản về số chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế. |
-| 10 | **Bảo mật & phân quyền** | Xác thực người dùng, phân quyền nhân viên/quản trị viên, bảo vệ dữ liệu cá nhân, vị trí và giao dịch; lưu vết các thao tác quan trọng. |
+| STT | Phạm vi hệ thống | Chức năng chính |
+|---|---|---|
+| 1 | **Quản lý tài khoản & hồ sơ** | Đăng ký, đăng nhập, cập nhật thông tin, quản lý hồ sơ tài xế và phương tiện. |
+| 2 | **Đặt xe** | Nhập điểm đón, điểm đến, chọn loại xe và tạo yêu cầu đặt xe. |
+| 3 | **Tìm tài xế** | Tìm và phân công tài xế phù hợp dựa trên vị trí và trạng thái |
+| 4 | **Quản lý chuyến đi & vị trí** | Nhận chuyến,hủy chuyến, cập nhật trạng thái chuyến và theo dõi vị trí tài xế. |
+| 5 | **Tính cước & thanh toán** | Tính cước, thanh toán tiền mặt hoặc điện tử và xử lý giao dịch. |
+| 6 | **Thông báo** | Thông báo về đặt xe, nhận chuyến, trạng thái chuyến và thanh toán. |
+| 7 | **Đánh giá & lịch sử chuyến** | Xem lịch sử chuyến, số tiền và đánh giá tài xế. |
+| 8 | **Quản lý vận hành** | Quản lý khách hàng, tài xế, phương tiện, chuyến đi và xử lý sự cố. |
+| 9 | **Giao dịch & báo cáo** | Tra cứu giao dịch và xem báo cáo hoạt động, doanh thu. |
+| 10 | **Bảo mật & phân quyền** | Xác thực, phân quyền và bảo vệ dữ liệu hệ thống. |
 # 5. Yêu cầu danh nghiệp
 ## Business Requirements
-
-| ID | Module | Business Requirement |
-| --- | --- | --- |
-| **BR-01** | **Quản lý tài khoản & hồ sơ** | Hệ thống phải hỗ trợ quản lý tài khoản, hồ sơ khách hàng, tài xế và thông tin phương tiện. |
-| **BR-02** | **Đặt xe** | Hệ thống phải hỗ trợ khách hàng tạo yêu cầu đặt xe dựa trên điểm đón, điểm đến và loại xe. |
-| **BR-03** | **Tìm tài xế** | Hệ thống phải tự động tìm kiếm và phân công tài xế phù hợp dựa trên vị trí, trạng thái và các tiêu chí vận hành. |
-| **BR-04** | **Quản lý chuyến đi & vị trí** | Hệ thống phải hỗ trợ quản lý chuyến đi, cập nhật trạng thái và vị trí tài xế trong quá trình thực hiện chuyến. |
-| **BR-05** | **Tính cước & thanh toán** | Hệ thống phải hỗ trợ tính cước và thanh toán bằng tiền mặt hoặc thanh toán điện tử thông qua nhà cung cấp thanh toán bên ngoài. |
-| **BR-06** | **Thông báo** | Hệ thống phải cung cấp cơ chế thông báo cho khách hàng và tài xế về các sự kiện quan trọng trong quá trình đặt và thực hiện chuyến. |
-| **BR-07** | **Đánh giá & lịch sử chuyến** | Hệ thống phải hỗ trợ khách hàng tra cứu lịch sử chuyến, số tiền đã thanh toán và đánh giá tài xế sau khi hoàn thành chuyến. |
-| **BR-08** | **Quản lý vận hành** | Hệ thống phải hỗ trợ nhân viên vận hành quản lý và giám sát khách hàng, tài xế, phương tiện và chuyến đi, đồng thời xử lý các trường hợp phát sinh. |
-| **BR-09** | **Quản lý giao dịch & báo cáo** | Hệ thống phải hỗ trợ quản lý, tra cứu giao dịch và cung cấp các báo cáo phục vụ theo dõi hoạt động kinh doanh và hiệu quả vận hành. |
-| **BR-10** | **Bảo mật & phân quyền** | Hệ thống phải đảm bảo xác thực người dùng, kiểm soát quyền truy cập, bảo vệ dữ liệu và lưu vết các thao tác quản trị quan trọng. |
-## BR-01 — Quản lý tài khoản & hồ sơ
-
-**Business Requirement:** Hệ thống phải hỗ trợ quản lý tài khoản, hồ sơ người dùng, tài xế và phương tiện.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-01** | Hệ thống cho phép người dùng đăng ký, đăng nhập và đăng xuất. |
-| **FR-02** | Hệ thống cho phép người dùng quản lý thông tin cá nhân. |
-| **FR-03** | Hệ thống cho phép tài xế quản lý hồ sơ và thông tin phương tiện. |
-| **FR-04** | Hệ thống cho phép tài xế cập nhật trạng thái hoạt động. |
-
----
-
-## BR-02 — Đặt xe
-
-**Business Requirement:** Hệ thống phải hỗ trợ khách hàng tạo và quản lý yêu cầu đặt xe.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-05** | Hệ thống cho phép khách hàng nhập điểm đón, điểm đến và lựa chọn loại xe. |
-| **FR-06** | Hệ thống hiển thị thông tin chuyến và cước phí dự kiến trước khi đặt xe. |
-| **FR-07** | Hệ thống cho phép khách hàng xác nhận hoặc hủy yêu cầu đặt xe. |
-
----
-
-## BR-03 — Tìm tài xế
-
-**Business Requirement:** Hệ thống phải hỗ trợ tìm kiếm và phân công tài xế phù hợp cho chuyến xe.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-08** | Hệ thống tự động tìm kiếm tài xế đang sẵn sàng nhận chuyến. |
-| **FR-09** | Hệ thống lựa chọn và phân công tài xế dựa trên vị trí, trạng thái và loại xe. |
-| **FR-10** | Hệ thống tìm tài xế khác khi tài xế từ chối hoặc không phản hồi. |
-| **FR-11** | Hệ thống thông báo cho khách hàng khi không tìm được tài xế. |
-
----
-
-## BR-04 — Quản lý chuyến đi & vị trí
-
-**Business Requirement:** Hệ thống phải hỗ trợ quản lý trạng thái chuyến đi và vị trí tài xế.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-12** | Hệ thống cho phép tài xế chấp nhận hoặc từ chối chuyến. |
-| **FR-13** | Hệ thống cho phép tài xế cập nhật trạng thái chuyến từ nhận chuyến đến hoàn thành. |
-| **FR-14** | Hệ thống ghi nhận và cập nhật vị trí tài xế trong quá trình thực hiện chuyến. |
-| **FR-15** | Hệ thống cho phép khách hàng theo dõi trạng thái và vị trí chuyến đi. |
-
----
-
-## BR-05 — Tính cước & thanh toán
-
-**Business Requirement:** Hệ thống phải hỗ trợ tính cước và thanh toán cho chuyến xe.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-16** | Hệ thống tính và xác định số tiền khách hàng phải thanh toán. |
-| **FR-17** | Hệ thống cho phép khách hàng lựa chọn phương thức thanh toán tiền mặt hoặc điện tử. |
-| **FR-18** | Hệ thống ghi nhận và cập nhật kết quả giao dịch thanh toán. |
-
----
-
-## BR-06 — Thông báo
-
-**Business Requirement:** Hệ thống phải hỗ trợ gửi thông báo đến khách hàng và tài xế về các sự kiện quan trọng.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-19** | Hệ thống gửi thông báo về yêu cầu đặt xe và thay đổi trạng thái chuyến. |
-| **FR-20** | Hệ thống gửi thông báo về kết quả thanh toán và các sự kiện liên quan đến chuyến. |
-
----
-
-## BR-07 — Đánh giá & lịch sử chuyến
-
-**Business Requirement:** Hệ thống phải hỗ trợ khách hàng tra cứu lịch sử và đánh giá dịch vụ.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-21** | Hệ thống cho phép khách hàng xem lịch sử chuyến và thông tin thanh toán. |
-| **FR-22** | Hệ thống cho phép khách hàng đánh giá tài xế sau khi hoàn thành chuyến. |
-
----
-
-## BR-08 — Quản lý vận hành
-
-**Business Requirement:** Hệ thống phải hỗ trợ nhân viên vận hành quản lý và giám sát khách hàng, tài xế, phương tiện và chuyến đi, đồng thời xử lý các trường hợp phát sinh.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-23** | Hệ thống cho phép nhân viên vận hành quản lý thông tin khách hàng và tài xế. |
-| **FR-24** | Hệ thống cho phép nhân viên vận hành quản lý thông tin phương tiện. |
-| **FR-25** | Hệ thống cho phép nhân viên vận hành xem và giám sát các chuyến đang diễn ra. |
-| **FR-26** | Hệ thống cho phép nhân viên vận hành theo dõi trạng thái tài xế. |
-| **FR-27** | Hệ thống cho phép nhân viên vận hành xử lý các trường hợp chuyến đi gặp sự cố. |
-
----
-
-## BR-09 — Quản lý giao dịch & báo cáo
-
-**Business Requirement:** Hệ thống phải hỗ trợ quản lý giao dịch và cung cấp báo cáo phục vụ hoạt động kinh doanh.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-28** | Hệ thống lưu trữ và cho phép tra cứu lịch sử giao dịch thanh toán. |
-| **FR-29** | Hệ thống cung cấp báo cáo về số chuyến, doanh thu và tình trạng chuyến. |
-| **FR-30** | Hệ thống cung cấp báo cáo về hiệu quả hoạt động của tài xế. |
-
----
-
-## BR-10 — Bảo mật & phân quyền
-
-**Business Requirement:** Hệ thống phải đảm bảo xác thực, phân quyền và bảo vệ dữ liệu trong hệ thống.
-
-| ID | Functional Requirement |
-|---|---|
-| **FR-31** | Hệ thống xác thực người dùng trước khi sử dụng các chức năng yêu cầu đăng nhập. |
-| **FR-32** | Hệ thống kiểm soát quyền truy cập dựa trên vai trò người dùng. |
-| **FR-33** | Hệ thống bảo vệ dữ liệu và ghi nhận các thao tác quản trị quan trọng. |
-
+| **ID Business Requirement** | **Business Requirement** |
+| --------------------------- | ------------------------ |
+| BR-01 | Hỗ trợ quản lý tài khoản, hồ sơ khách hàng, tài xế và phương tiện. |
+| BR-02 | Hỗ trợ khách hàng nhập điểm đón, điểm đến, lựa chọn loại xe và tạo yêu cầu đặt xe. |
+| BR-03 | Tự động tìm và phân công tài xế phù hợp dựa trên vị trí và trạng thái hoạt động. |
+| BR-04 | Hỗ trợ tài xế nhận hoặc từ chối chuyến, hủy chuyến, cập nhật trạng thái và theo dõi vị trí trong quá trình thực hiện chuyến. |
+| BR-05 | Tính toán cước và hỗ trợ thanh toán chuyến đi bằng tiền mặt hoặc phương thức điện tử. |
+| BR-06 | Cung cấp thông báo về yêu cầu đặt xe, nhận chuyến, trạng thái chuyến và kết quả thanh toán. |
+| BR-07 | Hỗ trợ khách hàng xem lịch sử chuyến đi, chi phí và đánh giá tài xế. |
+| BR-08 | Hỗ trợ nhân viên vận hành quản lý khách hàng, tài xế, phương tiện, chuyến đi và xử lý sự cố. |
+| BR-09 | Hỗ trợ tra cứu giao dịch và cung cấp báo cáo về hoạt động, doanh thu và hiệu suất tài xế. |
+| BR-10 | Đảm bảo hệ thống hoạt động ổn định, bảo mật, phân quyền và có khả năng mở rộng trong tương lai. |
+# 6. Functional Requirement
+| BR | Mã FR | Functional Requirement |
+|---|---|---|
+| **BR-01** | FR-01 | Hệ thống hỗ trợ khách hàng đăng ký tài khoản. |
+| | FR-02 | Hệ thống hỗ trợ khách hàng đăng nhập. |
+| | FR-03 | Hệ thống hỗ trợ khách hàng cập nhật thông tin cá nhân. |
+| | FR-04 | Hệ thống hỗ trợ quản lý hồ sơ tài xế và thông tin phương tiện. |
+| **BR-02** | FR-05 | Hệ thống hỗ trợ khách hàng nhập điểm đón. |
+| | FR-06 | Hệ thống hỗ trợ khách hàng nhập điểm đến. |
+| | FR-07 | Hệ thống hỗ trợ khách hàng lựa chọn loại xe. |
+| | FR-08 | Hệ thống hỗ trợ khách hàng tạo yêu cầu đặt xe. |
+| **BR-03** | FR-09 | Hệ thống xác định tài xế phù hợp dựa trên vị trí. |
+| | FR-10 | Hệ thống kiểm tra trạng thái sẵn sàng của tài xế. |
+| | FR-11 | Hệ thống phân công tài xế phù hợp cho chuyến đi. |
+| | FR-12 | Hệ thống tiếp tục tìm tài xế khác khi tài xế từ chối hoặc không phản hồi. |
+| | FR-13 | Hệ thống thông báo cho khách hàng khi không tìm được tài xế. |
+| **BR-04** | FR-14 | Hệ thống hỗ trợ tài xế nhận chuyến. |
+| | FR-15 | Hệ thống hỗ trợ tài xế từ chối chuyến. |
+| | FR-16 | Hệ thống hỗ trợ cập nhật trạng thái chuyến đi. |
+| | FR-17 | Hệ thống hỗ trợ theo dõi vị trí tài xế. |
+| **BR-05** | FR-18 | Hệ thống tính cước chuyến đi. |
+| | FR-19 | Hệ thống hỗ trợ thanh toán bằng tiền mặt. |
+| | FR-20 | Hệ thống hỗ trợ thanh toán bằng phương thức điện tử. |
+| | FR-21 | Hệ thống cập nhật kết quả thanh toán. |
+| | FR-22 | Hệ thống xử lý trường hợp thanh toán điện tử thất bại. |
+| **BR-06** | FR-23 | Hệ thống thông báo khi yêu cầu đặt xe được tạo. |
+| | FR-24 | Hệ thống thông báo khi tài xế nhận chuyến. |
+| | FR-25 | Hệ thống thông báo khi tài xế đã đến điểm đón. |
+| | FR-26 | Hệ thống thông báo khi chuyến đi hoàn thành. |
+| | FR-27 | Hệ thống thông báo kết quả thanh toán. |
+| **BR-07** | FR-28 | Hệ thống hỗ trợ khách hàng xem lịch sử chuyến đi. |
+| | FR-29 | Hệ thống hỗ trợ khách hàng đánh giá tài xế sau khi hoàn thành chuyến. |
+| **BR-08** | FR-30 | Hệ thống hỗ trợ nhân viên vận hành quản lý khách hàng. |
+| | FR-31 | Hệ thống hỗ trợ nhân viên vận hành quản lý tài xế. |
+| | FR-32 | Hệ thống hỗ trợ nhân viên vận hành quản lý phương tiện. |
+| | FR-33 | Hệ thống hỗ trợ nhân viên vận hành quản lý và theo dõi chuyến đi. |
+| | FR-34 | Hệ thống hỗ trợ nhân viên vận hành theo dõi trạng thái tài xế. |
+| | FR-35 | Hệ thống hỗ trợ nhân viên vận hành ghi nhận và xử lý sự cố. |
+| **BR-09** | FR-36 | Hệ thống hỗ trợ tra cứu lịch sử giao dịch. |
+| | FR-37 | Hệ thống cung cấp báo cáo số lượng chuyến đi. |
+| | FR-38 | Hệ thống cung cấp báo cáo doanh thu. |
+| | FR-39 | Hệ thống cung cấp báo cáo tỷ lệ hoàn thành và hủy chuyến. |
+| | FR-40 | Hệ thống cung cấp báo cáo hiệu suất tài xế. |
+| **BR-10** | FR-41 | Hệ thống thực hiện xác thực người dùng. |
+| | FR-42 | Hệ thống thực hiện phân quyền người dùng theo vai trò. |
+| | FR-43 | Hệ thống bảo vệ dữ liệu người dùng và dữ liệu giao dịch. |
+| | FR-44 | Hệ thống ghi nhận nhật ký hoạt động để phục vụ kiểm tra và truy vết. |
 # 7. Vẽ Usecase 
 ```mermaid
 flowchart LR
