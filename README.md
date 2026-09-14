@@ -228,238 +228,492 @@ flowchart LR
 
 # 8. Đặc tả Usecase
 # 8. Use Case Specification
-# KHÁCH HÀNG
 
-## UC-KH01 – Quản lý tài khoản
+## T1. Đăng nhập
 
-| Thành phần         | Nội dung                                                                  |
-| ------------------ | ------------------------------------------------------------------------- |
-| **Tên Use Case**   | Quản lý tài khoản                                                         |
-| **Actor**          | Khách hàng                                                                |
-| **Mục tiêu**       | Cho phép khách hàng đăng ký, đăng nhập và cập nhật thông tin cá nhân.    |
-| **Tiền điều kiện** | Khách hàng truy cập vào hệ thống CAB.                                     |
-| **Hậu điều kiện**  | Tài khoản hoặc thông tin cá nhân được cập nhật thành công.                |
-| **Luồng chính**|                                                                                 |
-| **Actor**                                      | **Hệ thống**                                      |
-| ---------------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng chọn đăng ký tài khoản.          | 2. Hiển thị giao diện đăng ký.                   |
-| 3. Khách hàng nhập thông tin đăng ký.          | 4. Kiểm tra thông tin được cung cấp.              |
-| 5. Khách hàng xác nhận đăng ký.                | 6. Tạo tài khoản và thông báo đăng ký thành công.|
-| 7. Khách hàng chọn đăng nhập.                  | 8. Hiển thị giao diện đăng nhập.                 |
-| 9. Khách hàng nhập thông tin đăng nhập.        | 10. Kiểm tra và xác thực thông tin tài khoản.    |
-| 11. Khách hàng xác nhận đăng nhập.             | 12. Đăng nhập và cho phép truy cập hệ thống.     |
-| 13. Khách hàng chọn cập nhật thông tin cá nhân.| 14. Hiển thị thông tin hồ sơ hiện tại.           |
-| 15. Khách hàng nhập thông tin mới và xác nhận. | 16. Kiểm tra và lưu thông tin hồ sơ.             |
-|                                                 | 17. Thông báo cập nhật thông tin thành công.     |
-|**Luồng thay thế**|                                                                             |
-|- **Tại bước 1:** Khách hàng đã có tài khoản → Chuyển sang bước 7 để đăng nhập.|
-|- **Tại bước 13:** Khách hàng không cập nhật thông tin cá nhân → Kết thúc Use Case.|
-|**Luồng ngoại lệ**|                                                                             |
-|- **Tại bước 4:** Thông tin đăng ký không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.|
-|- **Tại bước 4:** Tài khoản đã tồn tại → Hệ thống thông báo và yêu cầu sử dụng thông tin khác.|
-|- **Tại bước 10:** Thông tin đăng nhập không chính xác → Hệ thống thông báo đăng nhập thất bại.|
-|- **Tại bước 16:** Thông tin cập nhật không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.|
-
-
----
-
-## UC-KH02 – Đặt xe
-
-| Thành phần         | Nội dung                                                                  |
-| ------------------ | ------------------------------------------------------------------------- |
-| **Tên Use Case**   | Đặt xe                                                                    |
-| **Actor**          | Khách hàng                                                                |
-| **Mục tiêu**       | Cho phép khách hàng nhập thông tin chuyến đi và tạo yêu cầu đặt xe.      |
-| **Tiền điều kiện** | Khách hàng đã đăng nhập vào hệ thống CAB.                                |
-| **Hậu điều kiện**  | Yêu cầu đặt xe được tạo thành công và chuyển sang quá trình tìm tài xế.  |
+| Thành phần         | Nội dung                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| **Tên Use Case**   | Đăng nhập                                                                                  |
+| **Actor**          | Khách hàng, Tài xế, Nhân viên vận hành, Quản trị viên                                      |
+| **Mục tiêu**       | Cho phép người dùng đăng nhập và truy cập hệ thống theo quyền được cấp.                    |
+| **Tiền điều kiện** | Người dùng đã có tài khoản và truy cập vào hệ thống CAB.                                   |
+| **Hậu điều kiện**  | Người dùng được xác thực thành công và được phép truy cập các chức năng phù hợp với quyền. |
 
 ### Luồng chính
 
-| **Actor**                                      | **Hệ thống**                                      |
-| ---------------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng chọn chức năng đặt xe.           | 2. Hiển thị giao diện đặt xe.                    |
-| 3. Khách hàng nhập điểm đón.                   | 4. Kiểm tra thông tin điểm đón.                  |
-| 5. Khách hàng nhập điểm đến.                   | 6. Kiểm tra thông tin điểm đến.                  |
-| 7. Khách hàng lựa chọn loại xe.                | 8. Ghi nhận loại xe được lựa chọn.               |
-| 9. Khách hàng xác nhận yêu cầu đặt xe.          | 10. Kiểm tra thông tin đặt xe.                   |
-|                                                 | 11. Tạo yêu cầu đặt xe.                           |
-|                                                 | 12. Chuyển yêu cầu sang quá trình tìm tài xế.    |
-|                                                 | 13. Thông báo yêu cầu đặt xe đã được tạo.        |
+| **Actor**                               | **Hệ thống**                                             |
+| --------------------------------------- | -------------------------------------------------------- |
+| 1. Người dùng chọn đăng nhập.           | 2. Hiển thị giao diện đăng nhập.                         |
+| 3. Người dùng nhập thông tin đăng nhập. | 4. Kiểm tra thông tin tài khoản.                         |
+| 5. Người dùng xác nhận đăng nhập.       | 6. Xác thực thông tin tài khoản.                         |
+|                                         | 7. Tạo phiên đăng nhập và xác định quyền của người dùng. |
+|                                         | 8. Cho phép người dùng truy cập hệ thống.                |
 
 ### Luồng thay thế
 
-- **Tại bước 7:** Khách hàng thay đổi loại xe → Hệ thống cập nhật loại xe được lựa chọn.
-- **Tại bước 9:** Khách hàng chỉnh sửa thông tin chuyến đi → Hệ thống cho phép cập nhật điểm đón, điểm đến hoặc loại xe.
+* **Tại bước 1:** Người dùng chưa có tài khoản → Chuyển sang chức năng đăng ký tài khoản.
+* **Tại bước 7:** Người dùng không thực hiện chức năng nào khác → Kết thúc Use Case.
 
 ### Luồng ngoại lệ
 
-- **Tại bước 4:** Điểm đón không hợp lệ → Hệ thống yêu cầu khách hàng nhập lại.
-- **Tại bước 6:** Điểm đến không hợp lệ → Hệ thống yêu cầu khách hàng nhập lại.
-- **Tại bước 10:** Thông tin đặt xe không đầy đủ → Hệ thống yêu cầu bổ sung thông tin.
-- **Tại bước 11:** Không thể tạo yêu cầu đặt xe → Hệ thống thông báo lỗi và yêu cầu thử lại.
-
+* **Tại bước 4:** Thông tin đăng nhập không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.
+* **Tại bước 6:** Xác thực thất bại → Hệ thống từ chối đăng nhập.
+* **Tại bước 7:** Người dùng không có quyền truy cập chức năng → Hệ thống từ chối truy cập.
 
 ---
 
-## UC-KH03 – Theo dõi chuyến đi
+## T2. Quản lý hồ sơ tài xế và phương tiện
+
+| Thành phần         | Nội dung                                                                                |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý hồ sơ tài xế và phương tiện                                                     |
+| **Actor**          | Tài xế                                                                                  |
+| **Mục tiêu**       | Cho phép tài xế cập nhật hồ sơ cá nhân, thông tin phương tiện và trạng thái hoạt động.  |
+| **Tiền điều kiện** | Tài xế đã đăng nhập thành công vào hệ thống CAB.                                        |
+| **Hậu điều kiện**  | Hồ sơ tài xế, thông tin phương tiện hoặc trạng thái hoạt động được cập nhật thành công. |
+
+### Luồng chính
+
+| **Actor**                                            | **Hệ thống**                                   |
+| ---------------------------------------------------- | ---------------------------------------------- |
+| 1. Tài xế chọn quản lý hồ sơ.                        | 2. Hiển thị thông tin hồ sơ hiện tại.          |
+| 3. Tài xế nhập hoặc chỉnh sửa thông tin hồ sơ.       | 4. Kiểm tra thông tin hồ sơ.                   |
+| 5. Tài xế xác nhận cập nhật.                         | 6. Lưu thông tin hồ sơ tài xế.                 |
+| 7. Tài xế chọn quản lý phương tiện.                  | 8. Hiển thị thông tin phương tiện hiện tại.    |
+| 9. Tài xế nhập hoặc chỉnh sửa thông tin phương tiện. | 10. Kiểm tra thông tin phương tiện.            |
+| 11. Tài xế xác nhận cập nhật.                        | 12. Lưu thông tin phương tiện.                 |
+| 13. Tài xế chọn cập nhật trạng thái hoạt động.       | 14. Hiển thị trạng thái hoạt động hiện tại.    |
+| 15. Tài xế chọn trạng thái mới.                      | 16. Kiểm tra và cập nhật trạng thái hoạt động. |
+|                                                      | 17. Thông báo cập nhật thành công.             |
+
+### Luồng thay thế
+
+* **Tại bước 3:** Tài xế không thay đổi thông tin hồ sơ → Chuyển sang bước 7.
+* **Tại bước 9:** Tài xế không thay đổi thông tin phương tiện → Chuyển sang bước 13.
+* **Tại bước 15:** Tài xế không thay đổi trạng thái → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 4:** Thông tin hồ sơ không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.
+* **Tại bước 10:** Thông tin phương tiện không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.
+* **Tại bước 16:** Trạng thái hoạt động không hợp lệ → Hệ thống thông báo lỗi và không cập nhật.
+* **Tại bất kỳ bước nào:** Người dùng không có quyền tài xế → Hệ thống từ chối thao tác.
+
+---
+
+## T3. Quản lý chuyến đi
+
+| Thành phần         | Nội dung                                                                                                   |
+| ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý chuyến đi                                                                                          |
+| **Actor**          | Khách hàng, Tài xế                                                                                         |
+| **Mục tiêu**       | Cho phép khách hàng đặt xe, theo dõi chuyến; tài xế nhận và cập nhật trạng thái chuyến đến khi hoàn thành. |
+| **Tiền điều kiện** | Người dùng đã đăng nhập. Khách hàng có nhu cầu đặt xe hoặc tài xế có chuyến được phân công.                |
+| **Hậu điều kiện**  | Chuyến đi được tạo, cập nhật trạng thái, theo dõi và hoàn thành hoặc hủy theo trạng thái tương ứng.        |
+
+### Luồng chính
+
+| **Actor**                                             | **Hệ thống**                                      |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| 1. Khách hàng nhập điểm đón, điểm đến và loại xe.     | 2. Kiểm tra thông tin đặt xe.                     |
+| 3. Khách hàng yêu cầu xem thông tin chuyến.           | 4. Hiển thị thông tin chuyến và cước phí dự kiến. |
+| 5. Khách hàng xác nhận đặt xe.                        | 6. Tạo yêu cầu đặt xe.                            |
+|                                                       | 7. Tìm tài xế phù hợp đang sẵn sàng.              |
+|                                                       | 8. Phân công tài xế cho chuyến đi.                |
+|                                                       | 9. Gửi yêu cầu chuyến đến tài xế.                 |
+| 10. Tài xế chấp nhận chuyến.                          | 11. Cập nhật tài xế nhận chuyến.                  |
+| 12. Tài xế cập nhật trạng thái chuyến.                | 13. Lưu trạng thái chuyến.                        |
+| 14. Tài xế cập nhật vị trí.                           | 15. Lưu thông tin vị trí tài xế.                  |
+| 16. Khách hàng theo dõi chuyến.                       | 17. Hiển thị thông tin và trạng thái chuyến.      |
+| 18. Tài xế hoàn thành chuyến.                         | 19. Cập nhật chuyến sang trạng thái hoàn thành.   |
+| 20. Khách hàng xem lịch sử chuyến và đánh giá tài xế. | 21. Lưu lịch sử và đánh giá.                      |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Khách hàng không xác nhận đặt xe → Kết thúc Use Case.
+* **Tại bước 10:** Tài xế từ chối chuyến → Hệ thống tìm tài xế khác.
+* **Tại bước 10:** Tài xế không phản hồi → Hệ thống xử lý tìm tài xế khác theo chính sách.
+* **Tại bước 20:** Khách hàng không đánh giá tài xế → Kết thúc Use Case.
+* **Tại bước 18:** Khách hàng hủy chuyến → Hệ thống xử lý hủy chuyến theo chính sách của doanh nghiệp.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Thông tin đặt xe không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.
+* **Tại bước 7:** Không tìm được tài xế phù hợp → Hệ thống thông báo cho khách hàng.
+* **Tại bước 8:** Không thể phân công tài xế → Hệ thống thông báo và xử lý tìm tài xế khác.
+* **Tại bước 12:** Trạng thái chuyến không hợp lệ → Hệ thống thông báo lỗi và không cập nhật.
+* **Tại bước 15:** Không thể cập nhật vị trí → Hệ thống thông báo lỗi.
+* **Tại bước 21:** Thông tin đánh giá không hợp lệ → Hệ thống yêu cầu nhập lại.
+
+---
+
+## T4. Xem thông báo
+
+| Thành phần         | Nội dung                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| **Tên Use Case**   | Xem thông báo                                                                        |
+| **Actor**          | Khách hàng, Tài xế                                                                   |
+| **Mục tiêu**       | Cho phép người dùng xem các thông báo liên quan đến đặt xe, chuyến đi và thanh toán. |
+| **Tiền điều kiện** | Người dùng đã đăng nhập thành công.                                                  |
+| **Hậu điều kiện**  | Danh sách thông báo của người dùng được hiển thị.                                    |
+
+### Luồng chính
+
+| **Actor**                               | **Hệ thống**                               |
+| --------------------------------------- | ------------------------------------------ |
+| 1. Người dùng chọn chức năng thông báo. | 2. Lấy danh sách thông báo của người dùng. |
+|                                         | 3. Hiển thị danh sách thông báo.           |
+| 4. Người dùng chọn một thông báo.       | 5. Hiển thị nội dung thông báo.            |
+
+### Luồng thay thế
+
+* **Tại bước 2:** Không có thông báo → Hệ thống hiển thị danh sách thông báo trống.
+* **Tại bước 4:** Người dùng không chọn thông báo cụ thể → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không thể lấy danh sách thông báo → Hệ thống thông báo lỗi.
+
+---
+
+# NHÂN VIÊN VẬN HÀNH
+
+## N1. Quản lý khách hàng
+
+| Thành phần         | Nội dung                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý khách hàng                                                                  |
+| **Actor**          | Nhân viên vận hành                                                                  |
+| **Mục tiêu**       | Cho phép nhân viên vận hành xem và quản lý thông tin khách hàng trên hệ thống.      |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập chức năng quản lý người dùng.  |
+| **Hậu điều kiện**  | Thông tin khách hàng được hiển thị hoặc thao tác quản lý được thực hiện thành công. |
+
+### Luồng chính
+
+| **Actor**                                      | **Hệ thống**                      |
+| ---------------------------------------------- | --------------------------------- |
+| 1. Nhân viên vận hành chọn quản lý khách hàng. | 2. Kiểm tra quyền truy cập.       |
+|                                                | 3. Lấy danh sách khách hàng.      |
+|                                                | 4. Hiển thị danh sách khách hàng. |
+| 5. Nhân viên chọn khách hàng cần xem.          | 6. Hiển thị thông tin khách hàng. |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Nhân viên không chọn khách hàng cụ thể → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Nhân viên không có quyền → Hệ thống từ chối truy cập.
+* **Tại bước 3:** Không có dữ liệu khách hàng → Hệ thống hiển thị danh sách trống.
+
+---
+
+## N2. Quản lý tài xế
+
+| Thành phần         | Nội dung                                                                   |
+| ------------------ | -------------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý tài xế                                                             |
+| **Actor**          | Nhân viên vận hành                                                         |
+| **Mục tiêu**       | Cho phép nhân viên vận hành xem và quản lý thông tin tài xế trên hệ thống. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập.                      |
+| **Hậu điều kiện**  | Thông tin tài xế được hiển thị hoặc quản lý thành công.                    |
+
+### Luồng chính
+
+| **Actor**                                  | **Hệ thống**                  |
+| ------------------------------------------ | ----------------------------- |
+| 1. Nhân viên vận hành chọn quản lý tài xế. | 2. Kiểm tra quyền truy cập.   |
+|                                            | 3. Lấy danh sách tài xế.      |
+|                                            | 4. Hiển thị danh sách tài xế. |
+| 5. Nhân viên chọn tài xế cần xem.          | 6. Hiển thị thông tin tài xế. |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Nhân viên không chọn tài xế cụ thể → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không có quyền truy cập → Hệ thống từ chối thao tác.
+* **Tại bước 3:** Không có dữ liệu tài xế → Hệ thống hiển thị danh sách trống.
+
+---
+
+## N3. Quản lý phương tiện
 
 | Thành phần         | Nội dung                                                                  |
 | ------------------ | ------------------------------------------------------------------------- |
-| **Tên Use Case**   | Theo dõi chuyến đi                                                        |
-| **Actor**          | Khách hàng                                                                |
-| **Mục tiêu**       | Cho phép khách hàng theo dõi vị trí tài xế và trạng thái chuyến đi.      |
-| **Tiền điều kiện** | Khách hàng đã đặt xe và chuyến đi đang được thực hiện.                   |
-| **Hậu điều kiện**  | Khách hàng xem được vị trí và trạng thái hiện tại của chuyến đi.         |
+| **Tên Use Case**   | Quản lý phương tiện                                                       |
+| **Actor**          | Nhân viên vận hành                                                        |
+| **Mục tiêu**       | Cho phép nhân viên vận hành xem thông tin các phương tiện trong hệ thống. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập.                     |
+| **Hậu điều kiện**  | Danh sách hoặc thông tin phương tiện được hiển thị.                       |
+
+### Luồng chính
+
+| **Actor**                                       | **Hệ thống**                       |
+| ----------------------------------------------- | ---------------------------------- |
+| 1. Nhân viên vận hành chọn quản lý phương tiện. | 2. Kiểm tra quyền truy cập.        |
+|                                                 | 3. Lấy danh sách phương tiện.      |
+|                                                 | 4. Hiển thị danh sách phương tiện. |
+| 5. Nhân viên chọn phương tiện cần xem.          | 6. Hiển thị thông tin phương tiện. |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Nhân viên không chọn phương tiện cụ thể → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không có quyền truy cập → Hệ thống từ chối thao tác.
+* **Tại bước 3:** Không có dữ liệu phương tiện → Hệ thống hiển thị danh sách trống.
+
+---
+
+## N4. Quản lý chuyến đi
+
+| Thành phần         | Nội dung                                                             |
+| ------------------ | -------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý chuyến đi                                                    |
+| **Actor**          | Nhân viên vận hành                                                   |
+| **Mục tiêu**       | Cho phép nhân viên vận hành giám sát và xem thông tin các chuyến đi. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập.                |
+| **Hậu điều kiện**  | Danh sách và thông tin chuyến đi được hiển thị.                      |
+
+### Luồng chính
+
+| **Actor**                                     | **Hệ thống**                              |
+| --------------------------------------------- | ----------------------------------------- |
+| 1. Nhân viên vận hành chọn quản lý chuyến đi. | 2. Kiểm tra quyền truy cập.               |
+|                                               | 3. Lấy danh sách chuyến đi.               |
+|                                               | 4. Hiển thị danh sách chuyến đi.          |
+| 5. Nhân viên chọn chuyến cần xem.             | 6. Hiển thị thông tin chi tiết chuyến đi. |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Nhân viên không chọn chuyến cụ thể → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không có quyền truy cập → Hệ thống từ chối thao tác.
+* **Tại bước 3:** Không có dữ liệu chuyến đi → Hệ thống hiển thị danh sách trống.
+
+---
+
+## N5. Theo dõi trạng thái tài xế
+
+| Thành phần         | Nội dung                                                              |
+| ------------------ | --------------------------------------------------------------------- |
+| **Tên Use Case**   | Theo dõi trạng thái tài xế                                            |
+| **Actor**          | Nhân viên vận hành                                                    |
+| **Mục tiêu**       | Cho phép nhân viên vận hành theo dõi trạng thái hoạt động của tài xế. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập.                 |
+| **Hậu điều kiện**  | Trạng thái tài xế được hiển thị.                                      |
+
+### Luồng chính
+
+| **Actor**                                   | **Hệ thống**                                    |
+| ------------------------------------------- | ----------------------------------------------- |
+| 1. Nhân viên vận hành chọn theo dõi tài xế. | 2. Kiểm tra quyền truy cập.                     |
+|                                             | 3. Lấy danh sách tài xế và trạng thái hiện tại. |
+|                                             | 4. Hiển thị trạng thái tài xế.                  |
+| 5. Nhân viên chọn tài xế cần theo dõi.      | 6. Hiển thị thông tin trạng thái của tài xế.    |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Nhân viên không chọn tài xế cụ thể → Tiếp tục xem danh sách trạng thái.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không có quyền truy cập → Hệ thống từ chối thao tác.
+* **Tại bước 3:** Không thể lấy trạng thái tài xế → Hệ thống thông báo lỗi.
+
+---
+
+## N6. Xử lý sự cố
+
+| Thành phần         | Nội dung                                                                       |
+| ------------------ | ------------------------------------------------------------------------------ |
+| **Tên Use Case**   | Xử lý sự cố                                                                    |
+| **Actor**          | Nhân viên vận hành                                                             |
+| **Mục tiêu**       | Cho phép nhân viên vận hành ghi nhận và xử lý các trường hợp chuyến đi bị lỗi. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có sự cố chuyến đi cần xử lý.               |
+| **Hậu điều kiện**  | Sự cố được ghi nhận và xử lý trên hệ thống.                                    |
+
+### Luồng chính
+
+| **Actor**                               | **Hệ thống**                                     |
+| --------------------------------------- | ------------------------------------------------ |
+| 1. Nhân viên vận hành chọn xử lý sự cố. | 2. Hiển thị giao diện ghi nhận sự cố.            |
+| 3. Nhân viên nhập thông tin sự cố.      | 4. Kiểm tra thông tin sự cố.                     |
+| 5. Nhân viên xác nhận ghi nhận.         | 6. Lưu thông tin sự cố.                          |
+|                                         | 7. Thông báo ghi nhận và xử lý sự cố thành công. |
+
+### Luồng thay thế
+
+* **Tại bước 3:** Nhân viên không tiếp tục ghi nhận sự cố → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 4:** Thông tin sự cố không hợp lệ → Hệ thống thông báo lỗi và yêu cầu nhập lại.
+* **Tại bước 6:** Không thể lưu thông tin sự cố → Hệ thống thông báo lỗi.
+
+---
+
+## N7. Tra cứu giao dịch
+
+| Thành phần         | Nội dung                                                            |
+| ------------------ | ------------------------------------------------------------------- |
+| **Tên Use Case**   | Tra cứu giao dịch                                                   |
+| **Actor**          | Nhân viên vận hành                                                  |
+| **Mục tiêu**       | Cho phép nhân viên vận hành tra cứu lịch sử giao dịch của hệ thống. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập.               |
+| **Hậu điều kiện**  | Lịch sử giao dịch được hiển thị.                                    |
+
+### Luồng chính
+
+| **Actor**                                     | **Hệ thống**                     |
+| --------------------------------------------- | -------------------------------- |
+| 1. Nhân viên vận hành chọn tra cứu giao dịch. | 2. Kiểm tra quyền truy cập.      |
+|                                               | 3. Lấy lịch sử giao dịch.        |
+|                                               | 4. Hiển thị danh sách giao dịch. |
+| 5. Nhân viên chọn giao dịch cần xem.          | 6. Hiển thị thông tin giao dịch. |
+
+### Luồng thay thế
+
+* **Tại bước 5:** Nhân viên không chọn giao dịch cụ thể → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không có quyền truy cập → Hệ thống từ chối thao tác.
+* **Tại bước 3:** Không có giao dịch → Hệ thống hiển thị danh sách trống.
+
+---
+
+## N8. Xem báo cáo
+
+| Thành phần         | Nội dung                                                            |
+| ------------------ | ------------------------------------------------------------------- |
+| **Tên Use Case**   | Xem báo cáo                                                         |
+| **Actor**          | Nhân viên vận hành                                                  |
+| **Mục tiêu**       | Cho phép nhân viên vận hành xem các báo cáo hoạt động của hệ thống. |
+| **Tiền điều kiện** | Nhân viên vận hành đã đăng nhập và có quyền truy cập.               |
+| **Hậu điều kiện**  | Báo cáo hoạt động được hiển thị.                                    |
+
+### Luồng chính
+
+| **Actor**                               | **Hệ thống**                       |
+| --------------------------------------- | ---------------------------------- |
+| 1. Nhân viên vận hành chọn xem báo cáo. | 2. Kiểm tra quyền truy cập.        |
+|                                         | 3. Lấy dữ liệu báo cáo hoạt động.  |
+|                                         | 4. Tổng hợp dữ liệu báo cáo.       |
+|                                         | 5. Hiển thị báo cáo cho nhân viên. |
+
+### Luồng thay thế
+
+* **Tại bước 1:** Nhân viên không chọn báo cáo → Kết thúc Use Case.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không có quyền truy cập → Hệ thống từ chối thao tác.
+* **Tại bước 3:** Không có dữ liệu → Hệ thống thông báo không có dữ liệu báo cáo.
+* **Tại bước 4:** Không thể tổng hợp dữ liệu → Hệ thống thông báo lỗi.
+
+---
+
+# QUẢN TRỊ HỆ THỐNG
+
+## A1. Quản lý quyền truy cập / phân quyền
+
+| Thành phần         | Nội dung                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý quyền truy cập / phân quyền                                                   |
+| **Actor**          | Quản trị viên, Nhân viên vận hành                                                     |
+| **Mục tiêu**       | Kiểm tra quyền của người dùng trước khi cho phép truy cập các chức năng của hệ thống. |
+| **Tiền điều kiện** | Người dùng đã đăng nhập và hệ thống đã xác định tài khoản người dùng.                 |
+| **Hậu điều kiện**  | Người dùng được phép truy cập hoặc bị từ chối tùy theo quyền được cấp.                |
+
+### Luồng chính
+
+| **Actor**                                     | **Hệ thống**                                 |
+| --------------------------------------------- | -------------------------------------------- |
+| 1. Người dùng yêu cầu truy cập một chức năng. | 2. Xác định người dùng hiện tại.             |
+|                                               | 3. Kiểm tra quyền của người dùng.            |
+|                                               | 4. So sánh quyền với chức năng được yêu cầu. |
+|                                               | 5. Cho phép truy cập chức năng.              |
+
+### Luồng thay thế
+
+* **Tại bước 1:** Người dùng truy cập chức năng không yêu cầu quyền đặc biệt → Hệ thống cho phép truy cập theo cơ chế xác thực.
+
+### Luồng ngoại lệ
+
+* **Tại bước 2:** Không xác định được người dùng → Hệ thống từ chối truy cập.
+* **Tại bước 3:** Không lấy được thông tin quyền → Hệ thống từ chối truy cập.
+* **Tại bước 4:** Người dùng không có quyền thực hiện chức năng → Hệ thống thông báo không có quyền truy cập.
+
+---
+
+## A2. Quản lý bảo mật
+
+| Thành phần         | Nội dung                                                                                                  |
+| ------------------ | --------------------------------------------------------------------------------------------------------- |
+| **Tên Use Case**   | Quản lý bảo mật                                                                                           |
+| **Actor**          | Khách hàng, Tài xế, Nhân viên vận hành, Quản trị viên                                                     |
+| **Mục tiêu**       | Xác thực người dùng trước khi sử dụng các chức năng yêu cầu tài khoản và kiểm soát truy cập vào hệ thống. |
+| **Tiền điều kiện** | Người dùng gửi yêu cầu truy cập hệ thống hoặc chức năng yêu cầu xác thực.                                 |
+| **Hậu điều kiện**  | Người dùng được xác thực thành công hoặc bị từ chối truy cập.                                             |
 
 ### Luồng chính
 
 | **Actor**                                     | **Hệ thống**                                      |
 | --------------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng chọn chuyến đi đang thực hiện.  | 2. Hiển thị thông tin chuyến đi.                 |
-| 3. Khách hàng yêu cầu theo dõi chuyến đi.     | 4. Lấy thông tin vị trí hiện tại của tài xế.     |
-| 5. Khách hàng xem vị trí tài xế.              | 6. Hiển thị vị trí tài xế trên hệ thống.         |
-| 7. Khách hàng xem trạng thái chuyến đi.       | 8. Hiển thị trạng thái hiện tại của chuyến đi.   |
-| 9. Khách hàng tiếp tục theo dõi chuyến đi.    | 10. Cập nhật thông tin vị trí và trạng thái.     |
+| 1. Người dùng gửi yêu cầu truy cập chức năng. | 2. Kiểm tra thông tin xác thực.                   |
+|                                               | 3. Xác thực người dùng.                           |
+|                                               | 4. Kiểm tra quyền truy cập.                       |
+|                                               | 5. Cho phép người dùng sử dụng chức năng phù hợp. |
 
 ### Luồng thay thế
 
-- **Tại bước 5:** Khách hàng chỉ xem trạng thái chuyến đi → Hệ thống hiển thị trạng thái hiện tại.
-- **Tại bước 9:** Chuyến đi đã hoàn thành → Hệ thống hiển thị trạng thái hoàn thành và kết thúc theo dõi.
+* **Tại bước 1:** Chức năng không yêu cầu xác thực → Hệ thống xử lý theo quyền truy cập của chức năng.
 
 ### Luồng ngoại lệ
 
-- **Tại bước 4:** Không nhận được dữ liệu vị trí → Hệ thống thông báo vị trí chưa được cập nhật.
-- **Tại bước 6:** Dữ liệu vị trí không khả dụng → Hệ thống thông báo không thể hiển thị vị trí tài xế.
-
+* **Tại bước 2:** Thông tin xác thực không hợp lệ → Hệ thống từ chối truy cập.
+* **Tại bước 3:** Xác thực thất bại → Hệ thống thông báo xác thực thất bại.
+* **Tại bước 4:** Người dùng không có quyền → Hệ thống từ chối truy cập.
 
 ---
 
-## UC-KH04 – Thanh toán chuyến đi
+## A3. Theo dõi nhật ký hoạt động
 
-| Thành phần         | Nội dung                                                                    |
-| ------------------ | --------------------------------------------------------------------------- |
-| **Tên Use Case**   | Thanh toán chuyến đi                                                        |
-| **Actor**          | Khách hàng                                                                   |
-| **Mục tiêu**       | Cho phép khách hàng thanh toán chi phí chuyến đi bằng tiền mặt hoặc điện tử. |
-| **Tiền điều kiện** | Chuyến đi đã hoàn thành và hệ thống đã tính cước.                           |
-| **Hậu điều kiện**  | Kết quả thanh toán được ghi nhận vào hệ thống.                               |
-
-### Luồng chính
-
-| **Actor**                                      | **Hệ thống**                                      |
-| ---------------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng xem thông tin thanh toán.        | 2. Tính và hiển thị cước chuyến đi.              |
-| 3. Khách hàng chọn phương thức thanh toán.     | 4. Hiển thị phương thức thanh toán tương ứng.    |
-| 5. Khách hàng xác nhận thanh toán.             | 6. Tiếp nhận và xử lý yêu cầu thanh toán.        |
-|                                                 | 7. Cập nhật kết quả thanh toán.                  |
-|                                                 | 8. Thông báo kết quả thanh toán cho khách hàng.  |
-
-### Luồng thay thế
-
-- **Tại bước 3:** Khách hàng chọn thanh toán bằng tiền mặt → Hệ thống ghi nhận phương thức thanh toán tiền mặt.
-- **Tại bước 3:** Khách hàng chọn thanh toán điện tử → Hệ thống chuyển yêu cầu đến đơn vị cung cấp thanh toán.
-- **Tại bước 5:** Khách hàng thực hiện thanh toán điện tử lại → Hệ thống tiếp nhận và xử lý yêu cầu thanh toán lại.
-
-### Luồng ngoại lệ
-
-- **Tại bước 2:** Không thể tính cước → Hệ thống thông báo lỗi và không cho phép tiếp tục thanh toán.
-- **Tại bước 6:** Thanh toán điện tử thất bại → Hệ thống thông báo thanh toán thất bại.
-- **Tại bước 7:** Không thể cập nhật kết quả thanh toán → Hệ thống thông báo lỗi và ghi nhận trạng thái chưa hoàn tất.
-
-
----
-
-## UC-KH05 – Xem thông báo
-
-| Thành phần         | Nội dung                                                                  |
-| ------------------ | ------------------------------------------------------------------------- |
-| **Tên Use Case**   | Xem thông báo                                                              |
-| **Actor**          | Khách hàng                                                                 |
-| **Mục tiêu**       | Cho phép khách hàng xem các thông báo liên quan đến đặt xe, chuyến đi và thanh toán. |
-| **Tiền điều kiện** | Khách hàng đã đăng nhập vào hệ thống CAB.                                 |
-| **Hậu điều kiện**  | Khách hàng xem được nội dung thông báo.                                    |
+| Thành phần         | Nội dung                                                                                  |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| **Tên Use Case**   | Theo dõi nhật ký hoạt động                                                                |
+| **Actor**          | Quản trị viên                                                                             |
+| **Mục tiêu**       | Cho phép theo dõi các thao tác quan trọng trên hệ thống để phục vụ kiểm tra khi có sự cố. |
+| **Tiền điều kiện** | Quản trị viên đã đăng nhập và có quyền truy cập nhật ký hoạt động.                        |
+| **Hậu điều kiện**  | Nhật ký hoạt động được ghi nhận và/hoặc hiển thị cho quản trị viên.                       |
 
 ### Luồng chính
 
-| **Actor**                                | **Hệ thống**                                      |
-| ---------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng chọn chức năng thông báo. | 2. Hiển thị danh sách thông báo.                 |
-| 3. Khách hàng chọn một thông báo.       | 4. Hiển thị nội dung thông báo.                  |
-| 5. Khách hàng xem thông báo.            | 6. Ghi nhận thông báo đã được xem.               |
+| **Actor**                                        | **Hệ thống**                             |
+| ------------------------------------------------ | ---------------------------------------- |
+| 1. Người dùng thực hiện một thao tác quan trọng. | 2. Hệ thống ghi nhận thao tác.           |
+|                                                  | 3. Lưu thông tin nhật ký hoạt động.      |
+| 4. Quản trị viên chọn xem nhật ký hoạt động.     | 5. Kiểm tra quyền truy cập.              |
+|                                                  | 6. Lấy thông tin nhật ký.                |
+|                                                  | 7. Hiển thị danh sách nhật ký hoạt động. |
 
 ### Luồng thay thế
 
-- **Tại bước 3:** Khách hàng không chọn thông báo cụ thể → Hệ thống tiếp tục hiển thị danh sách thông báo.
-- **Tại bước 5:** Khách hàng chỉ xem danh sách thông báo → Hệ thống giữ nguyên danh sách thông báo.
+* **Tại bước 4:** Quản trị viên không xem nhật ký → Hệ thống vẫn lưu các thao tác quan trọng.
 
 ### Luồng ngoại lệ
 
-- **Tại bước 2:** Không có thông báo → Hệ thống hiển thị danh sách thông báo trống.
-- **Tại bước 2:** Không thể tải thông báo → Hệ thống thông báo lỗi và yêu cầu thử lại.
+* **Tại bước 3:** Không thể lưu nhật ký → Hệ thống ghi nhận lỗi và xử lý theo cơ chế bảo đảm hoạt động của hệ thống.
+* **Tại bước 5:** Người dùng không có quyền xem nhật ký → Hệ thống từ chối truy cập.
+* **Tại bước 6:** Không có dữ liệu nhật ký → Hệ thống hiển thị danh sách trống.
 
 
----
-
-## UC-KH06 – Xem lịch sử chuyến đi
-
-| Thành phần         | Nội dung                                                                  |
-| ------------------ | ------------------------------------------------------------------------- |
-| **Tên Use Case**   | Xem lịch sử chuyến đi                                                      |
-| **Actor**          | Khách hàng                                                                 |
-| **Mục tiêu**       | Cho phép khách hàng xem lại các chuyến đi đã thực hiện.                    |
-| **Tiền điều kiện** | Khách hàng đã đăng nhập vào hệ thống CAB.                                 |
-| **Hậu điều kiện**  | Lịch sử chuyến đi được hiển thị cho khách hàng.                            |
-
-### Luồng chính
-
-| **Actor**                                       | **Hệ thống**                                      |
-| ----------------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng chọn chức năng lịch sử chuyến đi. | 2. Truy xuất lịch sử chuyến đi của khách hàng.   |
-| 3. Khách hàng chọn một chuyến đi.               | 4. Hiển thị thông tin chi tiết chuyến đi.        |
-| 5. Khách hàng xem thông tin chuyến đi.          | 6. Hiển thị thông tin tương ứng.                 |
-
-### Luồng thay thế
-
-- **Tại bước 3:** Khách hàng không chọn chuyến đi cụ thể → Hệ thống chỉ hiển thị danh sách lịch sử chuyến đi.
-- **Tại bước 3:** Khách hàng chọn một chuyến đi khác → Hệ thống hiển thị thông tin của chuyến đi được chọn.
-
-### Luồng ngoại lệ
-
-- **Tại bước 2:** Không có lịch sử chuyến đi → Hệ thống thông báo khách hàng chưa có chuyến đi.
-- **Tại bước 4:** Không tìm thấy thông tin chuyến đi → Hệ thống thông báo dữ liệu không tồn tại.
-
-
----
-
-## UC-KH07 – Đánh giá tài xế
-
-| Thành phần         | Nội dung                                                                  |
-| ------------------ | ------------------------------------------------------------------------- |
-| **Tên Use Case**   | Đánh giá tài xế                                                            |
-| **Actor**          | Khách hàng                                                                 |
-| **Mục tiêu**       | Cho phép khách hàng đánh giá tài xế sau khi chuyến đi hoàn thành.          |
-| **Tiền điều kiện** | Chuyến đi đã hoàn thành và khách hàng chưa đánh giá tài xế.                |
-| **Hậu điều kiện**  | Đánh giá của khách hàng được ghi nhận vào hệ thống.                        |
-
-### Luồng chính
-
-| **Actor**                                      | **Hệ thống**                                      |
-| ---------------------------------------------- | ------------------------------------------------- |
-| 1. Khách hàng chọn chuyến đi đã hoàn thành.    | 2. Hiển thị chức năng đánh giá tài xế.            |
-| 3. Khách hàng nhập đánh giá.                   | 4. Kiểm tra thông tin đánh giá.                  |
-| 5. Khách hàng xác nhận gửi đánh giá.           | 6. Lưu đánh giá vào hệ thống.                    |
-|                                                 | 7. Thông báo đánh giá đã được ghi nhận.          |
-
-### Luồng thay thế
-
-- **Tại bước 3:** Khách hàng chỉ đánh giá mức điểm → Hệ thống ghi nhận mức điểm đánh giá.
-- **Tại bước 3:** Khách hàng đánh giá mức điểm và nhập nội dung → Hệ thống ghi nhận cả điểm và nội dung đánh giá.
-
-### Luồng ngoại lệ
-
-- **Tại bước 1:** Chuyến đi chưa hoàn thành → Hệ thống không cho phép đánh giá.
-- **Tại bước 4:** Thông tin đánh giá không hợp lệ → Hệ thống yêu cầu khách hàng nhập lại.
-- **Tại bước 6:** Khách hàng đã đánh giá trước đó → Hệ thống thông báo không thể đánh giá lại.
 
 # 9. Phân tích quy trình nghiệp vụ
 
@@ -912,4 +1166,5 @@ Các quy trình trên thể hiện luồng nghiệp vụ chính của hệ thố
 | **BRULE-18** | Nhật ký thao tác            | Các thao tác quản trị quan trọng phải được ghi nhận để phục vụ kiểm tra và xử lý sự cố.                            |
 | **BRULE-19** | Bảo vệ dữ liệu              | Thông tin cá nhân, phương tiện, vị trí và giao dịch phải được bảo vệ.                                              |
 | **BRULE-20** | Báo cáo                     | Dữ liệu báo cáo phải được tổng hợp từ thông tin chuyến đi và giao dịch được hệ thống ghi nhận.                     |
+
 
